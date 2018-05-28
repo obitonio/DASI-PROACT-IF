@@ -21,7 +21,7 @@ public class Services {
         beginTransaction();
         
         DAOUtilisateur myDAO = new DAOUtilisateur();
-        myDAO.create(utilisateur);
+        myDAO.creer(utilisateur);
         
         endTransaction();
         return true;

@@ -5,7 +5,6 @@
  */
 package com.mycompany.proactif.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Query;
 
@@ -56,13 +55,11 @@ public class DAOInstance <T> {
      * /!\ L'attribut objetLocal doit être instancié
      * @return Une liste avec tous les objets
      */
-    public List<T> getTousLesObjets()
-    {
-         // Afficher nom requête generé 
+    public List<T> getTousLesObjets() {
         List<T> lesObjets = null;
         
-        String name = objetLocal.getClass().getName();
-        String jpql = "SELECT * FROM " + name;
+        String name = objetLocal.getClass().getSimpleName();
+        String jpql = "SELECT e FROM " + name + " e";
         System.out.println("Requête : " + jpql);
         Query query = JpaUtil.obtenirEntityManager().createQuery(jpql);
         lesObjets = (List<T>)query.getResultList();
