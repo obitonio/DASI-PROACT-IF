@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
 /**
  *
@@ -24,11 +25,23 @@ public class Utilisateur implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column(name="nom", nullable=false)
+    @Column(nullable=false)
     private String nom;
     
-    @Column(name="prenom", nullable=false)
+    @Column(nullable=false)
     private String prenom;
+   
+    @Column(nullable=false)
+    private DateTime dateNaissance;
+    
+    @Column(nullable=false)
+    private String telephone;
+    
+    @Column(nullable=false)
+    private String email;
+    
+    @Column(nullable=false)
+    private String motDePasse;
 
     public Utilisateur() {
     }
@@ -36,7 +49,36 @@ public class Utilisateur implements Serializable {
     public Long getId() {
         return id;
     }
+    
+    public String getNom() {
+        return nom;
+    }
 
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public DateTime getDateNaissance() {
+        return dateNaissance;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getMotDePasse() {
+        return motDePasse;
+    }
+    
+    
     public void setId(Long id) {
         this.id = id;
     }
@@ -48,19 +90,32 @@ public class Utilisateur implements Serializable {
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
-
-    public String getNom() {
-        return nom;
+    
+    public void setDateNaissance(DateTime dateNaissance) {
+        this.dateNaissance = dateNaissance;
     }
 
-    public String getPrenom() {
-        return prenom;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
-    public Utilisateur(String nom, String prenom) {
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setMotDePasse(String motDePasse) {
+        this.motDePasse = motDePasse;
+    }
+
+    public Utilisateur(String nom, String prenom, DateTime dateNaissance, String telephone, String email, String motDePasse) {
         this.nom = nom;
         this.prenom = prenom;
+        this.dateNaissance = dateNaissance;
+        this.telephone = telephone;
+        this.email = email;
+        this.motDePasse = motDePasse;
     }
+
 
     @Override
     public int hashCode() {
