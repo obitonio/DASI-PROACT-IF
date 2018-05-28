@@ -4,6 +4,7 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.mycompany.proactif.entites.Employe</class>
     <class>com.mycompany.proactif.entites.Utilisateur</class>
+    <class>com.mycompany.proactif.entites.Client</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/proactif"/>
       <property name="javax.persistence.jdbc.user" value="proactif"/>
