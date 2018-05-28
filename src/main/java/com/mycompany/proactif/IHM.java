@@ -5,6 +5,10 @@
  */
 package com.mycompany.proactif;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 /**
  *
  * @author antoinemathat
@@ -15,7 +19,20 @@ public class IHM {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("proactif");
+        EntityManager em = emf.createEntityManager();
+        
+        Utilisateur u1 = new Utilisateur("Jean", "Hameau");
+        
+       /* em.getTransaction().begin();
+        em.persist(u1);
+        em.getTransaction().commit();
+        em.close();
+        */
+        
+        
+       
+       System.out.println("PROACT'IF");
     }
     
 }
