@@ -5,6 +5,10 @@
  */
 package com.mycompany.proactif.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Query;
+
 /**
  *
  * @author antoinemathat
@@ -12,14 +16,14 @@ package com.mycompany.proactif.dao;
  */
 public class DAOInstance <T> {
    
-    T localObject = null;
+    T objetLocal = null;
 
-    public void setLocalObject(T localObject) {
-        this.localObject = localObject;
+    public void setObjetLocal(T objetLocal) {
+        this.objetLocal = objetLocal;
     }
 
-    public T getLocalObject() {
-        return localObject;
+    public T getObjetLocal() {
+        return objetLocal;
     }
     
     public DAOInstance() {
@@ -27,23 +31,42 @@ public class DAOInstance <T> {
     }
     
     public DAOInstance(T object) {
-        localObject = object;
+        objetLocal = object;
     }
     
-    public void create (T object) {
+    public void creer (T object) {
         JpaUtil.obtenirEntityManager().persist(object);
-        this.localObject = object;
+        this.objetLocal = object;
     }
     
-    public void update() {
-        JpaUtil.obtenirEntityManager().merge(localObject);
+    public void mettreAJour() {
+        JpaUtil.obtenirEntityManager().merge(objetLocal);
     }
     
-    public void delete () {
-        JpaUtil.obtenirEntityManager().remove(localObject);
+    public void supprimer () {
+        JpaUtil.obtenirEntityManager().remove(objetLocal);
     }
    
-    public void findById(long id) {
-        localObject = JpaUtil.obtenirEntityManager().find((Class<T>) localObject.getClass(), id);
+    public void trouverParId(long id) {
+        objetLocal = JpaUtil.obtenirEntityManager().find((Class<T>) objetLocal.getClass(), id);
+    }
+    
+
+    /**
+     * /!\ L'attribut objetLocal doit être instancié
+     * @return Une liste avec tous les objets
+     */
+    public List<T> getTousLesObjets()
+    {
+         // Afficher nom requête generé 
+        List<T> lesObjets = null;
+        
+        String name = objetLocal.getClass().getName();
+        String jpql = "SELECT * FROM " + name;
+        System.out.println("Requête : " + jpql);
+        Query query = JpaUtil.obtenirEntityManager().createQuery(jpql);
+        lesObjets = (List<T>)query.getResultList();
+        
+        return lesObjets;
     }
 }
