@@ -5,6 +5,7 @@
  */
 package com.mycompany.proactif;
 
+import com.mycompany.proactif.entites.Utilisateur;
 import com.mycompany.proactif.dao.DAOUtilisateur;
 import com.mycompany.proactif.dao.JpaUtil;
 import com.mycompany.proactif.services.Services;

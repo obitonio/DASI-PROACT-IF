@@ -5,7 +5,7 @@
  */
 package com.mycompany.proactif.dao;
 
-import com.mycompany.proactif.Utilisateur;
+import com.mycompany.proactif.entites.Utilisateur;
 
 /**
  *
