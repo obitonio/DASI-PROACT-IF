@@ -29,6 +29,8 @@ public class Utilisateur implements Serializable {
     
     @Column(name="prenom", nullable=false)
     private String prenom;
+    
+    
 
     public Long getId() {
         return id;
@@ -36,6 +38,27 @@ public class Utilisateur implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public Utilisateur(String nom, String prenom) {
+        this.nom = nom;
+        this.prenom = prenom;
     }
 
     @Override
