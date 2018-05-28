@@ -31,10 +31,16 @@ public class Services {
         commencerTransaction();
         
         DAOUtilisateur maDAO = new DAOUtilisateur();
-        //maDAO.authentifier(email, motDePasse);
+        if(maDAO.authentifier(email, motDePasse)){
+            finirTransaction();
+            return true;
+        }
+        else{
+            finirTransaction();
+            return false;
+        }
         
-        finirTransaction();
-        return true;
+        
     }
     
     private static void commencerTransaction() {

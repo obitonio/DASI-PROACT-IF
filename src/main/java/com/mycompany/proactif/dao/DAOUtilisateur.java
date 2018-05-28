@@ -6,6 +6,7 @@
 package com.mycompany.proactif.dao;
 
 import com.mycompany.proactif.Utilisateur;
+import javax.persistence.Query;
 
 /**
  *
@@ -13,4 +14,19 @@ import com.mycompany.proactif.Utilisateur;
  */
 public class DAOUtilisateur extends DAOInstance<Utilisateur> {
     
+    public boolean authentifier(String email, String motDePasse){
+        
+        String jpql = "SELECT e FROM Utilisateur e WHERE e.email = :email AND e.motDePasse = :motDePasse";
+        Query requete = JpaUtil.obtenirEntityManager().createQuery(jpql);
+        requete.setParameter("email", email);
+        requete.setParameter("motDePasse", motDePasse);
+        try{
+            objetLocal = (Utilisateur) requete.getSingleResult();
+        }
+        catch(Exception e){
+            objetLocal = null;
+            return false;
+        }
+        return true; 
+    }
 }

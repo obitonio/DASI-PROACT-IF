@@ -22,13 +22,16 @@ public class IHM {
      */
     public static void main(String[] args) {
         Utilisateur u1 = new Utilisateur("Antoine", "Mathat", new Date(), "0677500460", "amathat@insa-lyon.fr", "123456");
-        Utilisateur u2 = new Utilisateur("Jean", "Neymar", new Date(), "0690239405", "jhameau@insa-lyon.fr", "123456");
+        Utilisateur u2 = new Utilisateur("Jean", "Neymar", new Date(), "0690239405", "jhameau@insa-lyon.fr", "1234567");
         
         JpaUtil.init();
         
         Services.ajouterUtilisateur(u1);
         Services.ajouterUtilisateur(u2);
         
-        System.out.println("PROACT'IF");
+        if(Services.authentifier(u1.getEmail(), u1.getMotDePasse()))
+            System.out.println("user 1 authentifié");
+        if(!Services.authentifier(u1.getEmail(), u2.getMotDePasse()))
+            System.out.println("user 2 non authentifié");
     }
 }
