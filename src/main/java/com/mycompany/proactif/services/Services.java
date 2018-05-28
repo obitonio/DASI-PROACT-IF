@@ -16,17 +16,34 @@ import com.mycompany.proactif.dao.JpaUtil;
  */
 public class Services {
     
-
     public static boolean ajouterUtilisateur(Utilisateur utilisateur) {
         
-        JpaUtil.creerEntityManager();
-        JpaUtil.ouvrirTransaction();
+        beginTransaction();
+        
         DAOUtilisateur myDAO = new DAOUtilisateur();
         myDAO.create(utilisateur);
         
-        JpaUtil.validerTransaction();
-        JpaUtil.fermerEntityManager();
-        
+        endTransaction();
         return true;
+    }
+    public static boolean authentifier(String email, String motDePasse) {
+        
+        beginTransaction();
+        
+        DAOUtilisateur myDAO = new DAOUtilisateur();
+        //myDAO.authentify(email, motDePasse);
+        
+        endTransaction();
+        return true;
+    }
+    
+    private static void beginTransaction() {
+       JpaUtil.creerEntityManager();
+       JpaUtil.ouvrirTransaction(); 
+    }
+    
+    private static void endTransaction() {
+       JpaUtil.validerTransaction();
+       JpaUtil.fermerEntityManager(); 
     }
 }
