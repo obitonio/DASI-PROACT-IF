@@ -31,5 +31,4 @@ public class IHM {
         
         System.out.println("PROACT'IF");
     }
-    
 }
