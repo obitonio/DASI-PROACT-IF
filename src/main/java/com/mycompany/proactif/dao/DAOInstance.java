@@ -8,19 +8,42 @@ package com.mycompany.proactif.dao;
 /**
  *
  * @author antoinemathat
+ * @param <T> Entity concerned by this DAO
  */
 public class DAOInstance <T> {
+   
+    T localObject = null;
+
+    public void setLocalObject(T localObject) {
+        this.localObject = localObject;
+    }
+
+    public T getLocalObject() {
+        return localObject;
+    }
+    
+    public DAOInstance() {
+        
+    }
+    
+    public DAOInstance(T object) {
+        localObject = object;
+    }
     
     public void create (T object) {
-        
+        JpaUtil.obtenirEntityManager().persist(object);
+        this.localObject = object;
     }
     
     public void update() {
-        
+        JpaUtil.obtenirEntityManager().merge(localObject);
     }
     
     public void delete () {
-        
+        JpaUtil.obtenirEntityManager().remove(localObject);
     }
    
+    public void findById(Long id) {
+        localObject = JpaUtil.obtenirEntityManager().find((Class<T>) localObject.getClass(), id);
+    }
 }
