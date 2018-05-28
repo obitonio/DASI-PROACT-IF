@@ -6,6 +6,7 @@
 package com.mycompany.proactif.services;
 
 import com.mycompany.proactif.Utilisateur;
+import com.mycompany.proactif.dao.DAOUtilisateur;
 import com.mycompany.proactif.dao.JpaUtil;
 
 
@@ -20,17 +21,12 @@ public class Services {
         
         JpaUtil.creerEntityManager();
         JpaUtil.ouvrirTransaction();
-        DAOUtilisateur myDAO = new DAOInstance();
+        DAOUtilisateur myDAO = new DAOUtilisateur();
+        myDAO.create(utilisateur);
         
-        if (myDAO.create(utilisateur)) {
-            JpaUtil.validerTransaction();
-            JpaUtil.fermerEntityManager();
-            return true;
-        } 
-        else {
-            JpaUtil.annulerTransaction();
-            JpaUtil.fermerEntityManager();
-            return false;
-        }       
+        JpaUtil.validerTransaction();
+        JpaUtil.fermerEntityManager();
+        
+        return true;
     }
 }

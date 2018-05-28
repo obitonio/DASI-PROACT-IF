@@ -43,7 +43,7 @@ public class DAOInstance <T> {
         JpaUtil.obtenirEntityManager().remove(localObject);
     }
    
-    public void findById(Long id) {
+    public void findById(long id) {
         localObject = JpaUtil.obtenirEntityManager().find((Class<T>) localObject.getClass(), id);
     }
 }

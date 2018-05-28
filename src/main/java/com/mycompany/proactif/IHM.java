@@ -5,9 +5,10 @@
  */
 package com.mycompany.proactif;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import com.mycompany.proactif.dao.DAOUtilisateur;
+import com.mycompany.proactif.dao.JpaUtil;
+import java.util.Date;
+import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
 /**
  *
@@ -19,15 +20,24 @@ public class IHM {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("proactif");
-        EntityManager em = emf.createEntityManager();
+        Utilisateur u1 = new Utilisateur("Antoine", "Mathat", new Date(), "0677500460", "amathat@insa-lyon.fr", "123456");
+        Utilisateur u2 = new Utilisateur("Jean", "Hameau", new Date(), "0690239405", "jHameau@insa-lyon.fr", "123456");
         
-        Utilisateur u1 = new Utilisateur("Jean", "Hameau");
+        JpaUtil.init();
+        JpaUtil.creerEntityManager();
+        JpaUtil.ouvrirTransaction();
+  
+        DAOUtilisateur daoTest = new DAOUtilisateur();
+        daoTest.create(u1);
+        daoTest.create(u2);
         
-        em.getTransaction().begin();
-        em.persist(u1);
-        em.getTransaction().commit();
-        em.close();
+        JpaUtil.validerTransaction();
+        
+        daoTest.findById((long)2);
+        Utilisateur uN = daoTest.getLocalObject();
+        System.out.println(uN.getPrenom() + " " + uN.getNom() + " " + uN.getTelephone());
+        
+        JpaUtil.fermerEntityManager();
         
         System.out.println("PROACT'IF");
     }

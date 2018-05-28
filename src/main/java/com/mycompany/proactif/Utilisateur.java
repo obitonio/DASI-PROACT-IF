@@ -6,12 +6,13 @@
 package com.mycompany.proactif;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import org.eclipse.persistence.jpa.jpql.parser.DateTime;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -32,7 +33,8 @@ public class Utilisateur implements Serializable {
     private String prenom;
    
     @Column(nullable=false)
-    private DateTime dateNaissance;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateNaissance;
     
     @Column(nullable=false)
     private String telephone;
@@ -62,7 +64,7 @@ public class Utilisateur implements Serializable {
         return serialVersionUID;
     }
 
-    public DateTime getDateNaissance() {
+    public Date getDateNaissance() {
         return dateNaissance;
     }
 
@@ -91,7 +93,7 @@ public class Utilisateur implements Serializable {
         this.prenom = prenom;
     }
     
-    public void setDateNaissance(DateTime dateNaissance) {
+    public void setDateNaissance(Date dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
 
@@ -107,7 +109,7 @@ public class Utilisateur implements Serializable {
         this.motDePasse = motDePasse;
     }
 
-    public Utilisateur(String nom, String prenom, DateTime dateNaissance, String telephone, String email, String motDePasse) {
+    public Utilisateur(String nom, String prenom, Date dateNaissance, String telephone, String email, String motDePasse) {
         this.nom = nom;
         this.prenom = prenom;
         this.dateNaissance = dateNaissance;
