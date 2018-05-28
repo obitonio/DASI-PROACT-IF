@@ -18,31 +18,31 @@ public class Services {
     
     public static boolean ajouterUtilisateur(Utilisateur utilisateur) {
         
-        beginTransaction();
+        commencerTransaction();
         
-        DAOUtilisateur myDAO = new DAOUtilisateur();
-        myDAO.creer(utilisateur);
+        DAOUtilisateur maDAO = new DAOUtilisateur();
+        maDAO.creer(utilisateur);
         
-        endTransaction();
+        finirTransaction();
         return true;
     }
     public static boolean authentifier(String email, String motDePasse) {
         
-        beginTransaction();
+        commencerTransaction();
         
-        DAOUtilisateur myDAO = new DAOUtilisateur();
-        //myDAO.authentify(email, motDePasse);
+        DAOUtilisateur maDAO = new DAOUtilisateur();
+        //maDAO.authentifier(email, motDePasse);
         
-        endTransaction();
+        finirTransaction();
         return true;
     }
     
-    private static void beginTransaction() {
+    private static void commencerTransaction() {
        JpaUtil.creerEntityManager();
        JpaUtil.ouvrirTransaction(); 
     }
     
-    private static void endTransaction() {
+    private static void finirTransaction() {
        JpaUtil.validerTransaction();
        JpaUtil.fermerEntityManager(); 
     }
