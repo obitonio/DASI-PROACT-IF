@@ -29,8 +29,9 @@ public class Utilisateur implements Serializable {
     
     @Column(name="prenom", nullable=false)
     private String prenom;
-    
-    
+
+    public Utilisateur() {
+    }
 
     public Long getId() {
         return id;

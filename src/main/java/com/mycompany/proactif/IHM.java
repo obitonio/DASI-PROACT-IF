@@ -24,15 +24,12 @@ public class IHM {
         
         Utilisateur u1 = new Utilisateur("Jean", "Hameau");
         
-       /* em.getTransaction().begin();
+        em.getTransaction().begin();
         em.persist(u1);
         em.getTransaction().commit();
         em.close();
-        */
         
-        
-       
-       System.out.println("PROACT'IF");
+        System.out.println("PROACT'IF");
     }
     
 }
