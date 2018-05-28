@@ -5,8 +5,9 @@
  */
 package com.mycompany.proactif.dao;
 
-import com.mycompany.proactif.Utilisateur;
 import javax.persistence.Query;
+import com.mycompany.proactif.entites.Utilisateur;
+
 
 /**
  *
