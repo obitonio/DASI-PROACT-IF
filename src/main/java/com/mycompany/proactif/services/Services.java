@@ -5,12 +5,11 @@
  */
 package com.mycompany.proactif.services;
 
-import com.mycompany.proactif.dao.DAOEmploye;
+import com.mycompany.proactif.dao.DAOAbstraitUtilisateur;;
 import com.mycompany.proactif.dao.DAOIntervention;
 import com.mycompany.proactif.entites.Utilisateur;
 import com.mycompany.proactif.dao.DAOUtilisateur;
 import com.mycompany.proactif.dao.JpaUtil;
-import com.mycompany.proactif.entites.Employe;
 import com.mycompany.proactif.entites.Intervention;
 
 
@@ -20,6 +19,7 @@ import com.mycompany.proactif.entites.Intervention;
  */
 public class Services {
     
+    @Deprecated
     public static boolean ajouterUtilisateur(Utilisateur utilisateur) {
         
         commencerTransaction();
@@ -31,15 +31,26 @@ public class Services {
         return true;
     }
     
-    public static void creerEmploye(Employe unEmploye) {
+    /**
+     * Permet de créer un utilisateur de tout type
+     * @param <T> Le type d'utilisateur à créer (Client, Employé)
+     * @param unUtilisateur L'utilisateur 
+     */
+    public static <T> void creerUtilisateur(T unUtilisateur) {
         commencerTransaction();
         
-        DAOEmploye maDAO = new DAOEmploye();
-        maDAO.creer(unEmploye);
+        DAOAbstraitUtilisateur<T> maDAO = new DAOAbstraitUtilisateur<T>();
+        maDAO.creer(unUtilisateur);
         
         finirTransaction();
     }
     
+    /**
+     * Permet de vérifier les identifiants d'un utilisateur
+     * @param email Email de l'utilisateur
+     * @param motDePasse Mot de passe de l'utilisateur
+     * @return true en cas de succès, false en cas d'echec
+     */
     public static boolean authentifier(String email, String motDePasse) {
         
         commencerTransaction();
@@ -55,6 +66,11 @@ public class Services {
         }
     }
     
+    /**
+     * Créer une demande d'intervention
+     * @param intervention La demande à créer
+     * @return 
+     */
     public static boolean creerDemandeIntervention(Intervention intervention) {
         
         commencerTransaction();

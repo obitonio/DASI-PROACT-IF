@@ -27,6 +27,11 @@ public abstract class DAOInstance <T> {
     }
     
     // ======================= Méthodes publiques
+    
+    /**
+     * Permet de créer un objet en base
+     * @param object L'objet à créer 
+     */   
     public void creer (T object) {
         JpaUtil.obtenirEntityManager().persist(object);
         this.objetLocal = object;
