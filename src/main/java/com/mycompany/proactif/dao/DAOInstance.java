@@ -14,25 +14,19 @@ import javax.persistence.Query;
  * @param <T> Entity concerned by this DAO
  */
 public class DAOInstance <T> {
-   
+    
+   // ======================= Attributs
     T objetLocal = null;
 
-    public void setObjetLocal(T objetLocal) {
-        this.objetLocal = objetLocal;
-    }
-
-    public T getObjetLocal() {
-        return objetLocal;
-    }
     
-    public DAOInstance() {
-        
-    }
+    // ======================= Contructeurs
+    public DAOInstance() {}
     
     public DAOInstance(T object) {
         objetLocal = object;
     }
     
+    // ======================= Méthodes publiques
     public void creer (T object) {
         JpaUtil.obtenirEntityManager().persist(object);
         this.objetLocal = object;
@@ -65,5 +59,14 @@ public class DAOInstance <T> {
         lesObjets = (List<T>)query.getResultList();
         
         return lesObjets;
+    }
+    
+    // ======================= Getters / Setters
+    public void setObjetLocal(T objetLocal) {
+        this.objetLocal = objetLocal;
+    }
+
+    public T getObjetLocal() {
+        return objetLocal;
     }
 }
