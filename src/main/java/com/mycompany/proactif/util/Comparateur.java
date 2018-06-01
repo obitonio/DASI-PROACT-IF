@@ -18,8 +18,7 @@ public class Comparateur implements Comparator<Intervention>{
     public enum FILTRES{
         DATE,
         INTITULE,
-        EMPLOYE,
-        TYPEINTERVENTION
+        EMPLOYE
     }
     private FILTRES typeFiltre;
 
@@ -64,16 +63,6 @@ public class Comparateur implements Comparator<Intervention>{
                     resultat = i2.getEmploye().getNom().compareTo(i1.getEmploye().getNom());
               break; 
               
-          case TYPEINTERVENTION:
-              String type1 = i1.getType().getClass().getSimpleName();
-              String type2 = i2.getType().getClass().getSimpleName();
-              System.out.println("t1: " + type1 + " t2: " + type2);
-              
-              if(croissant)
-                resultat = type1.compareTo(type2);
-              else
-                resultat = type2.compareTo(type1);
-              break; 
               
           default:
               resultat=0;
