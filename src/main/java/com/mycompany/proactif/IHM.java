@@ -52,6 +52,7 @@ public class IHM {
         }
         
         testTri(u1);
+        testCreerUtilisateur();
     }
     
     public static void testTri(Client u1)
@@ -83,5 +84,10 @@ public class IHM {
     {
         Adresse a1 = new Adresse(10, "Rue des pommes", "69100", "Villeurbanne", "Digicode 9029", "Lont: Lat:");
         System.out.println(a1.toString());
+    }
+    
+    public static void testCreerUtilisateur() {
+        Employe e1 = new Employe("Mathat", "Antoine", new Date("08/29/1997"), "0689093475", "amathat@insa-lyon.fr", "AntMat", "0934", 0, 0);
+        Services.creerUtilisateur(e1); 
     }
 }
