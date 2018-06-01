@@ -55,7 +55,6 @@ public class Intervention implements Serializable {
     @Column(nullable=false)
     private int etat;
     
-    @Column(nullable=false)
     @OneToOne
     private TypeIntervention type;
     
