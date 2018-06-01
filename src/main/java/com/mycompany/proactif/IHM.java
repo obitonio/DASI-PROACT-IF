@@ -37,8 +37,11 @@ public class IHM {
             System.out.println("user 2 non authentifié");
         
         Intervention monIntervention = new Intervention(u1, "LIvraison Colis", new Date(), "Le livreur passe à 17h30");
-        
         Services.creerDemandeIntervention(monIntervention);
+        
+        for(Intervention Inter : u1.getListeDesInterventions()){
+            System.out.println("lola");
+        }
         
         //TODO :  Créer l'utlisateur en classe abstraite!!
     }

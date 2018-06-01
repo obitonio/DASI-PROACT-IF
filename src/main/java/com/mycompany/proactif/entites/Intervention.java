@@ -61,6 +61,9 @@ public class Intervention implements Serializable {
         this.dateDebut = dateDebut;
         this.descriptionClient = descriptionClient;
         this.etat =0;  //TODO A DEFINIR AVEC ANTOINE
+        if(client != null){
+            client.getListeDesInterventions().add(this);
+        }
     }
     
     public Intervention(){}
@@ -107,8 +110,6 @@ public class Intervention implements Serializable {
     public int getEtat() {
         return etat;
     }
-    
-    
 
     public void setId(Long id) {
         this.id = id;
