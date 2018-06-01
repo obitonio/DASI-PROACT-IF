@@ -8,6 +8,7 @@ package com.mycompany.proactif;
 import com.mycompany.proactif.entites.Intervention;
 import com.mycompany.proactif.entites.Utilisateur;
 import com.mycompany.proactif.dao.JpaUtil;
+import com.mycompany.proactif.entites.Adresse;
 import com.mycompany.proactif.entites.Animal;
 import com.mycompany.proactif.entites.Client;
 import com.mycompany.proactif.entites.Employe;
@@ -54,8 +55,9 @@ public class IHM {
             System.out.println("lola");
         }
         
-        //TODO :  Créer l'utlisateur en classe abstraite!!
-        //IHM.testTri();
+
+        IHM.testClassTypeIntervention();
+        testClassAdresse();
     }
     
     public static void testClassTypeIntervention()
@@ -102,5 +104,11 @@ public class IHM {
         for (TypeIntervention ti : listeTypesInterventions) {
             System.out.println(ti.toString());
         }
+    }
+    
+    public static void testClassAdresse()
+    {
+        Adresse a1 = new Adresse(10, "Rue des pommes", "69100", "Villeurbanne", "Digicode 9029", "Lont: Lat:");
+        System.out.println(a1.toString());
     }
 }
