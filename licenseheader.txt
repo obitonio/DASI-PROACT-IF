@@ -1,0 +1,8 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}Projet DASI PROACT'IF
+${licensePrefix}Antoine Mathat & Jean Hameau - 3IFA
+<#if licenseLast??>
+${licenseLast}
+</#if>
