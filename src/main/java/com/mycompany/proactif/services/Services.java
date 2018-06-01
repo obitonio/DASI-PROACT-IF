@@ -22,12 +22,12 @@ public class Services {
     @Deprecated
     public static boolean ajouterUtilisateur(Utilisateur utilisateur) {
         
-        commencerTransaction();
+        commencerTransactionEcriture();
         
         DAOUtilisateur maDAO = new DAOUtilisateur();
         maDAO.creer(utilisateur);
         
-        finirTransaction();
+        finirTransactionEcriture();
         return true;
     }
     
@@ -37,12 +37,12 @@ public class Services {
      * @param unUtilisateur L'utilisateur 
      */
     public static <T extends Utilisateur> void creerUtilisateur(T unUtilisateur) {
-        commencerTransaction();
+        commencerTransactionEcriture();
         
         DAOAbstraitUtilisateur<T> maDAO = new DAOAbstraitUtilisateur<T>();
         maDAO.creer(unUtilisateur);
         
-        finirTransaction();
+        finirTransactionEcriture();
     }
     
     /**
@@ -53,17 +53,16 @@ public class Services {
      */
     public static boolean authentifier(String email, String motDePasse) {
         
-        commencerTransaction();
-        
+        commencerTransactionLecture();
         DAOUtilisateur maDAO = new DAOUtilisateur();
         if(maDAO.authentifier(email, motDePasse)){
-            finirTransaction();
+            finirTransactionLecture();
             return true;
         }
         else{
-            finirTransaction();
+            finirTransactionLecture();
             return false;
-        }
+        }  
     }
     
     /**
@@ -73,21 +72,29 @@ public class Services {
      */
     public static boolean creerDemandeIntervention(Intervention intervention) {
         
-        commencerTransaction();
+        commencerTransactionEcriture();
         DAOIntervention maDAO = new DAOIntervention();
         maDAO.creer(intervention);
-        finirTransaction();
+        finirTransactionEcriture();
         return true;
 
     }
     
-    private static void commencerTransaction() {
+    private static void commencerTransactionEcriture() {
        JpaUtil.creerEntityManager();
        JpaUtil.ouvrirTransaction(); 
     }
     
-    private static void finirTransaction() {
+    private static void finirTransactionEcriture() {
        JpaUtil.validerTransaction();
        JpaUtil.fermerEntityManager(); 
+    }
+    
+    private static void finirTransactionLecture() {
+       JpaUtil.fermerEntityManager(); 
+    }
+    
+    private static void commencerTransactionLecture() {
+       JpaUtil.creerEntityManager(); 
     }
 }

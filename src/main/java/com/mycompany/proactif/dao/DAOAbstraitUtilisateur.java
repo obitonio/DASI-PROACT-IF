@@ -30,4 +30,5 @@ public class DAOAbstraitUtilisateur<T extends Utilisateur> extends DAOInstance<T
         }
         return true; 
     }
+    //public
 }
