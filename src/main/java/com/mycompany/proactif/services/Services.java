@@ -11,6 +11,10 @@ import com.mycompany.proactif.entites.Utilisateur;
 import com.mycompany.proactif.dao.DAOUtilisateur;
 import com.mycompany.proactif.dao.JpaUtil;
 import com.mycompany.proactif.entites.Intervention;
+import com.mycompany.proactif.util.Comparateur;
+import com.mycompany.proactif.util.Comparateur.FILTRES;
+import java.util.Collections;
+import java.util.List;
 
 
 /**
@@ -63,6 +67,12 @@ public class Services {
             finirTransactionLecture();
             return false;
         }  
+    }
+    public static boolean trierListe(List<Intervention> listeInterventions,FILTRES monFiltre, boolean croissant){
+        
+        Comparateur monComparateur = new Comparateur (monFiltre, croissant);
+        Collections.sort(listeInterventions, monComparateur);
+        return true;
     }
     
     /**
