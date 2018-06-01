@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -53,6 +54,10 @@ public class Intervention implements Serializable {
     
     @Column(nullable=false)
     private int etat;
+    
+    @Column(nullable=false)
+    @OneToOne
+    private TypeIntervention type;
     
     // ======================= Constructeurs
     public Intervention(Client client, String intitule, Date dateDebut, String descriptionClient) {
@@ -145,6 +150,14 @@ public class Intervention implements Serializable {
 
     public void setEtat(int etat) {
         this.etat = etat;
+    }
+    
+    public TypeIntervention getType() {
+        return type;
+    }
+
+    public void setType(TypeIntervention type) {
+        this.type = type;
     }
     
     // ======================= Surcharges

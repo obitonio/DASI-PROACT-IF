@@ -44,6 +44,7 @@ public class Client extends Utilisateur implements Serializable {
     // ======================= Méthodes publiques
     
     // ======================= Getters / Setters
+    
     public List<Intervention> getListeDesInterventions() {
         return listeDesInterventions;
     }

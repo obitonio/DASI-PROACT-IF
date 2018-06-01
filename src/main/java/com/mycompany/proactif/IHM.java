@@ -8,10 +8,17 @@ package com.mycompany.proactif;
 import com.mycompany.proactif.entites.Intervention;
 import com.mycompany.proactif.entites.Utilisateur;
 import com.mycompany.proactif.dao.JpaUtil;
+import com.mycompany.proactif.entites.Animal;
 import com.mycompany.proactif.entites.Client;
 import com.mycompany.proactif.entites.Employe;
+import com.mycompany.proactif.entites.Incident;
+import com.mycompany.proactif.entites.Livraison;
+import com.mycompany.proactif.entites.TypeIntervention;
 import com.mycompany.proactif.services.Services;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -23,6 +30,7 @@ public class IHM {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+  
         Client u1 = new Client("Antoine", "Mathat", new Date(), "0677500460", "amathat@insa-lyon.fr", "123456", new Date(), 6);
         Employe u2 = new Employe("Jean", "Neymar", new Date(), "0690239405", "jhameau@insa-lyon.fr", "1234567", "696965", 9,8);
         
@@ -44,5 +52,26 @@ public class IHM {
         }
         
         //TODO :  Créer l'utlisateur en classe abstraite!!
+        IHM.testClassTypeIntervention();
+    }
+    
+    public static void testClassTypeIntervention()
+    {
+        List<TypeIntervention> listeTypesInterventions = new ArrayList<TypeIntervention>();
+        listeTypesInterventions.add(new Incident("Fuite d'eau", "URGENT"));
+        listeTypesInterventions.add(new Incident("Toilettes bouchés", "À TRAITER"));
+        listeTypesInterventions.add(new Incident("Gouttières bouchées", "URGENT"));
+        
+        listeTypesInterventions.add(new Animal("Nourir mon chat", "Tigrou", "CHAT"));
+        listeTypesInterventions.add(new Animal("Sortir mon chien", "Théo", "CHIEN"));
+        listeTypesInterventions.add(new Animal("Nourir mon serpent, attention à pas vous faire mordre", "Rex", "Serpent"));
+        
+        listeTypesInterventions.add(new Livraison("Récupérer colis", "Faissal", "01/06/2018 - 10:00", "093KS38U374"));
+        listeTypesInterventions.add(new Livraison("Récupérer colis", "Faissal", "03/06/2018 - 14:30", "0734738U374"));
+        listeTypesInterventions.add(new Livraison("Récupérer colis", "Faissal", "08/06/2018 - 11:00", "1934738U3ZR"));
+        
+        for (TypeIntervention ti : listeTypesInterventions) {
+            System.out.println(ti.toString());
+        }
     }
 }
