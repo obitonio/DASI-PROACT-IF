@@ -13,7 +13,6 @@ import com.mycompany.proactif.entites.Client;
 import com.mycompany.proactif.entites.Employe;
 import com.mycompany.proactif.entites.Incident;
 import com.mycompany.proactif.entites.Livraison;
-import com.mycompany.proactif.entites.TypeIntervention;
 import com.mycompany.proactif.services.Services;
 import com.mycompany.proactif.util.Comparateur;
 import java.util.ArrayList;
@@ -52,57 +51,30 @@ public class IHM {
             System.out.println("lola");
         }
         
+        testTri(u1);
+    }
+    
+    public static void testTri(Client u1)
+    {
+        List<Intervention> listeInterventions = new ArrayList<>();
+        listeInterventions.add(new Incident(u1, "LIvraison A", new Date(), "Le livreur passe à 17h30","Fuite d'eau", "URGENT"));
+        listeInterventions.add(new Incident(u1, "LIvraison B", new Date(), "Le livreur passe à 17h30","Toilettes bouchés", "À TRAITER"));
+        listeInterventions.add(new Incident(u1, "LIvraison C", new Date(), "Le livreur passe à 17h30","Gouttières bouchées", "URGENT"));
+        
+        listeInterventions.add(new Animal(u1, "LIvraison D", new Date(), "Le livreur passe à 17h30","Nourir mon chat", "Tigrou", "CHAT"));
+        listeInterventions.add(new Animal(u1, "LIvraison E", new Date(), "Le livreur passe à 17h30","Sortir mon chien", "Théo", "CHIEN"));
+        listeInterventions.add(new Animal(u1, "LIvraison F", new Date(), "Le livreur passe à 17h30","Nourir mon serpent, attention à pas vous faire mordre", "Rex", "Serpent"));
+        
+        listeInterventions.add(new Livraison(u1, "Livraison G", new Date(), "Le livreur passe à 17h30","Récupérer colis", "Jean", "01/06/2018 - 11:00", "093KS38U375"));
+        listeInterventions.add(new Livraison(u1, "Livraison H", new Date(), "Le livreur passe à 17h30","Récupérer colis", "Faissal", "01/06/2018 - 12:00", "093KS38U374"));
+        listeInterventions.add(new Livraison(u1, "Livraison I", new Date(), "Le livreur passe à 17h30","Récupérer colis", "Arthur", "01/06/2018 - 6:00", "093KS38U373"));
+        
+        Comparateur monComparateur = new Comparateur(Comparateur.FILTRES.INTITULE, true);
+        
+        Collections.sort(listeInterventions, monComparateur);
 
-        //IHM.testClassTypeIntervention();
-       // testClassAdresse();
-    }
-    
-    public static void testClassTypeIntervention()
-    {
-        List<TypeIntervention> listeTypesInterventions = new ArrayList<TypeIntervention>();
-        listeTypesInterventions.add(new Incident("Fuite d'eau", "URGENT"));
-        listeTypesInterventions.add(new Incident("Toilettes bouchés", "À TRAITER"));
-        listeTypesInterventions.add(new Incident("Gouttières bouchées", "URGENT"));
         
-        listeTypesInterventions.add(new Animal("Nourir mon chat", "Tigrou", "CHAT"));
-        listeTypesInterventions.add(new Animal("Sortir mon chien", "Théo", "CHIEN"));
-        listeTypesInterventions.add(new Animal("Nourir mon serpent, attention à pas vous faire mordre", "Rex", "Serpent"));
-        
-        listeTypesInterventions.add(new Livraison("Récupérer colis", "Faissal", "01/06/2018 - 10:00", "093KS38U374"));
-        listeTypesInterventions.add(new Livraison("Récupérer colis", "Faissal", "03/06/2018 - 14:30", "0734738U374"));
-        listeTypesInterventions.add(new Livraison("Récupérer colis", "Faissal", "08/06/2018 - 11:00", "1934738U3ZR"));
-        
-        for (TypeIntervention ti : listeTypesInterventions) {
-            System.out.println(ti.toString());
-        }
-        
-        testTri();
-    }
-    
-    public static void testTri()
-    {
-        List<TypeIntervention> listeTypesInterventions = new ArrayList<TypeIntervention>();
-        listeTypesInterventions.add(new Incident("Fuite d'eau", "URGENT"));
-        listeTypesInterventions.add(new Incident("Toilettes bouchés", "À TRAITER"));
-        listeTypesInterventions.add(new Incident("Gouttières bouchées", "URGENT"));
-        
-        listeTypesInterventions.add(new Animal("Nourir mon chat", "Tigrou", "CHAT"));
-        listeTypesInterventions.add(new Animal("Sortir mon chien", "Théo", "CHIEN"));
-        listeTypesInterventions.add(new Animal("Nourir mon serpent, attention à pas vous faire mordre", "Rex", "Serpent"));
-        
-        listeTypesInterventions.add(new Livraison("Récupérer colis", "Faissal", "01/06/2018 - 10:00", "093KS38U374"));
-        listeTypesInterventions.add(new Livraison("Récupérer colis", "Faissal", "03/06/2018 - 14:30", "0734738U374"));
-        listeTypesInterventions.add(new Livraison("Récupérer colis", "Faissal", "08/06/2018 - 11:00", "1934738U3ZR"));
-        
-        Comparateur monComparateur = new Comparateur(Comparateur.FILTRES.TYPEINTERVENTION, true);
-        
-        //Collections.sort(listeTypesInterventions, monComparateur);
-        
-        List<String> test = new ArrayList<String>();
-        List<Animal> test2 = new ArrayList<Animal>();
-        //Collections.sort(test2);
-        
-        for (TypeIntervention ti : listeTypesInterventions) {
+        for (Intervention ti : listeInterventions) {
             System.out.println(ti.toString());
         }
     }
