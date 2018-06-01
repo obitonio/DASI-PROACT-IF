@@ -12,7 +12,7 @@ import javax.persistence.Query;
  *
  * @author antoinemathat
  */
-public class DAOAbstraitUtilisateur<T> extends DAOInstance<T> {
+public class DAOAbstraitUtilisateur<T extends Utilisateur> extends DAOInstance<T> {
     
     public boolean authentifier(String email, String motDePasse){
         

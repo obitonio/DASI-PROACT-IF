@@ -36,7 +36,7 @@ public class Services {
      * @param <T> Le type d'utilisateur à créer (Client, Employé)
      * @param unUtilisateur L'utilisateur 
      */
-    public static <T> void creerUtilisateur(T unUtilisateur) {
+    public static <T extends Utilisateur> void creerUtilisateur(T unUtilisateur) {
         commencerTransaction();
         
         DAOAbstraitUtilisateur<T> maDAO = new DAOAbstraitUtilisateur<T>();
