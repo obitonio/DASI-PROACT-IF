@@ -20,6 +20,7 @@ import javax.persistence.Temporal;
 @Entity
 public class Client extends Utilisateur implements Serializable {
 
+    // ======================= Attributs
     private static final long serialVersionUID = 1L;
     
     @Column(nullable=false)
@@ -31,11 +32,18 @@ public class Client extends Utilisateur implements Serializable {
     
     @OneToMany(mappedBy = "client")
     private List<Intervention> listeDesInterventions;
-
-    public Date getDateDebutAbonnement() {
-        return dateDebutAbonnement;
+    
+    // ======================= Contructeurs
+    public Client(String nom, String prenom, Date dateNaissance, String telephone, String email, String motDePasse,Date dateDebutAbonnement, int duree) {
+        super(nom, prenom, dateNaissance, telephone, email, motDePasse);
+        this.dateDebutAbonnement = dateDebutAbonnement;
+        this.duree = duree;
     }
-
+    public Client(){}
+    
+    // ======================= Méthodes publiques
+    
+    // ======================= Getters / Setters
     public List<Intervention> getListeDesInterventions() {
         return listeDesInterventions;
     }
@@ -51,13 +59,12 @@ public class Client extends Utilisateur implements Serializable {
     public void setDuree(int duree) {
         this.duree = duree;
     }
-
-    public Client(String nom, String prenom, Date dateNaissance, String telephone, String email, String motDePasse,Date dateDebutAbonnement, int duree) {
-        super(nom, prenom, dateNaissance, telephone, email, motDePasse);
-        this.dateDebutAbonnement = dateDebutAbonnement;
-        this.duree = duree;
+    
+    public Date getDateDebutAbonnement() {
+        return dateDebutAbonnement;
     }
-    public Client(){}
+    
+    // ======================= Surcharges
     
     @Override
     public String toString() {

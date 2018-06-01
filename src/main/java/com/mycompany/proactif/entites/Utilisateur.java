@@ -23,7 +23,8 @@ import javax.persistence.Temporal;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Utilisateur implements Serializable {
-
+    
+    // ======================= Attributs
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -48,10 +49,22 @@ public abstract class Utilisateur implements Serializable {
     @Column(nullable=false)
     private String motDePasse;
     
-
+    // ======================= Constructeurs
+    public Utilisateur(String nom, String prenom, Date dateNaissance, String telephone, String email, String motDePasse) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateNaissance = dateNaissance;
+        this.telephone = telephone;
+        this.email = email;
+        this.motDePasse = motDePasse;
+    }
+        
     public Utilisateur() {
     }
 
+    // ======================= Méthodes publiques
+    
+    // ======================= Getters / Setters
     public Long getId() {
         return id;
     }
@@ -113,16 +126,7 @@ public abstract class Utilisateur implements Serializable {
         this.motDePasse = motDePasse;
     }
 
-    public Utilisateur(String nom, String prenom, Date dateNaissance, String telephone, String email, String motDePasse) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.dateNaissance = dateNaissance;
-        this.telephone = telephone;
-        this.email = email;
-        this.motDePasse = motDePasse;
-    }
-
-
+    // ======================= Surcharges
     @Override
     public int hashCode() {
         int hash = 0;

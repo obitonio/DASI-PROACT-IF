@@ -22,6 +22,7 @@ import javax.persistence.Temporal;
 @Entity
 public class Intervention implements Serializable {
 
+    // ======================= Attributs
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -52,7 +53,8 @@ public class Intervention implements Serializable {
     
     @Column(nullable=false)
     private int etat;
-
+    
+    // ======================= Constructeurs
     public Intervention(Client client, String intitule, Date dateDebut, String descriptionClient) {
         this.client = client;
         this.intitule = intitule;
@@ -63,7 +65,9 @@ public class Intervention implements Serializable {
     
     public Intervention(){}
     
+    // ======================= Méthodes publiques
     
+    // ======================= Getters / Setters
     public Long getId() {
         return id;
     }
@@ -110,11 +114,11 @@ public class Intervention implements Serializable {
         this.id = id;
     }
 
-    public void setClient(Utilisateur client) {
+    public void setClient(Client client) {
         this.client = client;
     }
 
-    public void setEmploye(Utilisateur employe) {
+    public void setEmploye(Employe employe) {
         this.employe = employe;
     }
 
@@ -142,7 +146,7 @@ public class Intervention implements Serializable {
         this.etat = etat;
     }
     
-
+    // ======================= Surcharges
     @Override
     public int hashCode() {
         int hash = 0;
