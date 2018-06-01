@@ -13,7 +13,7 @@ import javax.persistence.Query;
  * @author antoinemathat
  * @param <T> Entity concerned by this DAO
  */
-public class DAOInstance <T> {
+public abstract class DAOInstance <T> {
     
    // ======================= Attributs
     T objetLocal = null;

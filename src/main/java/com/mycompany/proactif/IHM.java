@@ -6,7 +6,6 @@
 package com.mycompany.proactif;
 
 import com.mycompany.proactif.entites.Intervention;
-import com.mycompany.proactif.entites.Utilisateur;
 import com.mycompany.proactif.dao.JpaUtil;
 import com.mycompany.proactif.entites.Adresse;
 import com.mycompany.proactif.entites.Animal;
@@ -17,9 +16,7 @@ import com.mycompany.proactif.entites.Livraison;
 import com.mycompany.proactif.entites.TypeIntervention;
 import com.mycompany.proactif.services.Services;
 import com.mycompany.proactif.util.Comparateur;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -56,8 +53,8 @@ public class IHM {
         }
         
 
-        IHM.testClassTypeIntervention();
-        testClassAdresse();
+        //IHM.testClassTypeIntervention();
+       // testClassAdresse();
     }
     
     public static void testClassTypeIntervention()
@@ -84,7 +81,7 @@ public class IHM {
     
     public static void testTri()
     {
-        List<TypeIntervention> listeTypesInterventions = new List<TypeIntervention>();
+        List<TypeIntervention> listeTypesInterventions = new ArrayList<TypeIntervention>();
         listeTypesInterventions.add(new Incident("Fuite d'eau", "URGENT"));
         listeTypesInterventions.add(new Incident("Toilettes bouchés", "À TRAITER"));
         listeTypesInterventions.add(new Incident("Gouttières bouchées", "URGENT"));
@@ -97,9 +94,13 @@ public class IHM {
         listeTypesInterventions.add(new Livraison("Récupérer colis", "Faissal", "03/06/2018 - 14:30", "0734738U374"));
         listeTypesInterventions.add(new Livraison("Récupérer colis", "Faissal", "08/06/2018 - 11:00", "1934738U3ZR"));
         
-        Comparateur monComparateur = new Comparateur(Comparateur.FILTRES.DATE, true);
+        Comparateur monComparateur = new Comparateur(Comparateur.FILTRES.TYPEINTERVENTION, true);
         
-        Collections.sort(listeTypesInterventions, monComparateur);
+        //Collections.sort(listeTypesInterventions, monComparateur);
+        
+        List<String> test = new ArrayList<String>();
+        List<Animal> test2 = new ArrayList<Animal>();
+        //Collections.sort(test2);
         
         for (TypeIntervention ti : listeTypesInterventions) {
             System.out.println(ti.toString());

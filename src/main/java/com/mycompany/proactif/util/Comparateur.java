@@ -34,7 +34,7 @@ public class Comparateur implements Comparator<Intervention>{
     
 
     public void setAscendant(boolean ascendant) {
-        this.ascendant = ascendant;
+        this.croissant = ascendant;
     }
     
     
@@ -65,10 +65,14 @@ public class Comparateur implements Comparator<Intervention>{
               break; 
               
           case TYPEINTERVENTION:
+              String type1 = i1.getType().getClass().getSimpleName();
+              String type2 = i2.getType().getClass().getSimpleName();
+              System.out.println("t1: " + type1 + " t2: " + type2);
+              
               if(croissant)
-                resultat = i1.getType().getClass().getSimpleName().compareTo(i2.getType().getClass().getSimpleName());
+                resultat = type1.compareTo(type2);
               else
-                resultat = i2.getType().getClass().getSimpleName().compareTo(i1.getType().getClass().getSimpleName());
+                resultat = type2.compareTo(type1);
               break; 
               
           default:

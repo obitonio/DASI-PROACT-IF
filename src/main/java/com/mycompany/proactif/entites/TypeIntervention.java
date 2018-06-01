@@ -58,6 +58,7 @@ public abstract class TypeIntervention implements Serializable {
     }
     
     // ======================= Surcharges
+    /*
     @Override
     public int hashCode() {
         int hash = 0;
@@ -76,7 +77,7 @@ public abstract class TypeIntervention implements Serializable {
             return false;
         }
         return true;
-    }
+    }*/
 
     @Override
     public String toString() {

@@ -5,10 +5,12 @@
  */
 package com.mycompany.proactif.services;
 
+import com.mycompany.proactif.dao.DAOEmploye;
 import com.mycompany.proactif.dao.DAOIntervention;
 import com.mycompany.proactif.entites.Utilisateur;
 import com.mycompany.proactif.dao.DAOUtilisateur;
 import com.mycompany.proactif.dao.JpaUtil;
+import com.mycompany.proactif.entites.Employe;
 import com.mycompany.proactif.entites.Intervention;
 
 
@@ -27,6 +29,15 @@ public class Services {
         
         finirTransaction();
         return true;
+    }
+    
+    public static void creerEmploye(Employe unEmploye) {
+        commencerTransaction();
+        
+        DAOEmploye maDAO = new DAOEmploye();
+        maDAO.creer(unEmploye);
+        
+        finirTransaction();
     }
     
     public static boolean authentifier(String email, String motDePasse) {

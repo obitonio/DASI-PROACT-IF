@@ -11,6 +11,6 @@ import com.mycompany.proactif.entites.Client;
  *
  * @author antoinemathat
  */
-public class DAOClient extends DAOInstance<Client> {
+public class DAOClient extends DAOAbstraitUtilisateur<Client> {
     
 }

@@ -11,6 +11,6 @@ import com.mycompany.proactif.entites.Employe;
  *
  * @author antoinemathat
  */
-public class DAOEmploye extends DAOInstance<Employe> {
+public class DAOEmploye extends DAOAbstraitUtilisateur<Employe> {
     
 }
