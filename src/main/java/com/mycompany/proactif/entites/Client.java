@@ -6,6 +6,7 @@
 package com.mycompany.proactif.entites;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -38,6 +39,7 @@ public class Client extends Utilisateur implements Serializable {
         super(nom, prenom, dateNaissance, telephone, email, motDePasse);
         this.dateDebutAbonnement = dateDebutAbonnement;
         this.duree = duree;
+        this.listeDesInterventions = new ArrayList<>();
     }
     public Client(){}
     

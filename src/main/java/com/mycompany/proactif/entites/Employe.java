@@ -6,6 +6,7 @@
 package com.mycompany.proactif.entites;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -39,6 +40,7 @@ public class Employe extends Utilisateur implements Serializable {
         this.numContrat = numContrat;
         this.salaire = salaire;
         this.disponibilite = disponibilite;
+        this.listeDesInterventions = new ArrayList<>();
     }
     
     public Employe(){}
