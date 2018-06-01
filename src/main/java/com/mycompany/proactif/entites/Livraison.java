@@ -19,7 +19,7 @@ import javax.persistence.Temporal;
  * @author antoinemathat
  */
 @Entity
-public class Livraison extends TypeIntervention implements Serializable {
+public class Livraison extends Intervention implements Serializable {
 
     // ======================= Attributs
     private static final long serialVersionUID = 1L;
@@ -37,8 +37,8 @@ public class Livraison extends TypeIntervention implements Serializable {
     // ======================= Constructeurs
     public Livraison() {}
     
-    public Livraison(String unLibelle, String unLivreur, String uneHeurePassage, String unCodeSuivi) {
-        super(unLibelle);
+    public Livraison(Client client, String intitule, Date dateDebut, String descriptionClient, String unLibelle, String unLivreur, String uneHeurePassage, String unCodeSuivi) {
+        super(client, intitule, dateDebut, descriptionClient);
         this.livreur = unLivreur;
         this.setHeurePassage(uneHeurePassage);
         this.codeSuivi = unCodeSuivi;

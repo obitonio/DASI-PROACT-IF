@@ -6,6 +6,7 @@
 package com.mycompany.proactif.entites;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -14,7 +15,7 @@ import javax.persistence.Entity;
  * @author antoinemathat
  */
 @Entity
-public class Incident extends TypeIntervention implements Serializable {
+public class Incident extends Intervention implements Serializable {
     
     // ======================= Attributs
     private static final long serialVersionUID = 1L;
@@ -25,8 +26,8 @@ public class Incident extends TypeIntervention implements Serializable {
     // ======================= Constructeurs
     public Incident() {}
     
-    public Incident(String unLibelle, String unePriorite) {
-        super(unLibelle);
+    public Incident(Client client, String intitule, Date dateDebut, String descriptionClient, String unLibelle, String unePriorite) {
+        super(client, intitule, dateDebut, descriptionClient);
         this.priorite = unePriorite;
     }
     

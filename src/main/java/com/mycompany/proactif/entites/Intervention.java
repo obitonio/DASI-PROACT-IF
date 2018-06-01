@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -21,6 +23,7 @@ import javax.persistence.Temporal;
  * @author Jean
  */
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Intervention implements Serializable {
 
     // ======================= Attributs
@@ -54,9 +57,6 @@ public class Intervention implements Serializable {
     
     @Column(nullable=false)
     private int etat;
-    
-    @OneToOne
-    private TypeIntervention type;
     
     // ======================= Constructeurs
     public Intervention(Client client, String intitule, Date dateDebut, String descriptionClient) {
@@ -149,14 +149,6 @@ public class Intervention implements Serializable {
 
     public void setEtat(int etat) {
         this.etat = etat;
-    }
-    
-    public TypeIntervention getType() {
-        return type;
-    }
-
-    public void setType(TypeIntervention type) {
-        this.type = type;
     }
     
     // ======================= Surcharges

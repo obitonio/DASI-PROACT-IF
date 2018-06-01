@@ -6,6 +6,7 @@
 package com.mycompany.proactif.entites;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -14,7 +15,7 @@ import javax.persistence.Entity;
  * @author antoinemathat
  */
 @Entity
-public class Animal extends TypeIntervention implements Serializable {
+public class Animal extends Intervention implements Serializable {
 
     // ======================= Attributs
     private static final long serialVersionUID = 1L;
@@ -28,8 +29,8 @@ public class Animal extends TypeIntervention implements Serializable {
     // ======================= Constructeurs
     public Animal() {}
     
-    public Animal(String unLibelle, String unNom, String unType) {
-        super(unLibelle);
+    public Animal(Client client, String intitule, Date dateDebut, String descriptionClient, String unLibelle, String unNom, String unType) {
+        super(client, intitule, dateDebut, descriptionClient);
         this.nom = unNom;
         this.type = unType;
                 
