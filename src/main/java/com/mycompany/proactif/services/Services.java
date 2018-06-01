@@ -5,9 +5,11 @@
  */
 package com.mycompany.proactif.services;
 
+import com.mycompany.proactif.dao.DAOIntervention;
 import com.mycompany.proactif.entites.Utilisateur;
 import com.mycompany.proactif.dao.DAOUtilisateur;
 import com.mycompany.proactif.dao.JpaUtil;
+import com.mycompany.proactif.entites.Intervention;
 
 
 /**
@@ -26,6 +28,7 @@ public class Services {
         finirTransaction();
         return true;
     }
+    
     public static boolean authentifier(String email, String motDePasse) {
         
         commencerTransaction();
@@ -39,8 +42,16 @@ public class Services {
             finirTransaction();
             return false;
         }
+    }
+    
+    public static boolean creerDemandeIntervention(Intervention intervention) {
         
-        
+        commencerTransaction();
+        DAOIntervention maDAO = new DAOIntervention();
+        maDAO.creer(intervention);
+        finirTransaction();
+        return true;
+
     }
     
     private static void commencerTransaction() {

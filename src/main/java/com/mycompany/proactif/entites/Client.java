@@ -7,8 +7,10 @@ package com.mycompany.proactif.entites;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 /**
@@ -23,11 +25,21 @@ public class Client extends Utilisateur implements Serializable {
     @Column(nullable=false)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateDebutAbonnement;
+    
+    @Column(nullable=false)
+    private int duree;
+    
+    @OneToMany(mappedBy = "client")
+    private List<Intervention> listeDesInterventions;
 
     public Date getDateDebutAbonnement() {
         return dateDebutAbonnement;
     }
 
+    public List<Intervention> getListeDesInterventions() {
+        return listeDesInterventions;
+    }
+    
     public void setDateDebutAbonnement(Date dateDebutAbonnement) {
         this.dateDebutAbonnement = dateDebutAbonnement;
     }
@@ -39,11 +51,14 @@ public class Client extends Utilisateur implements Serializable {
     public void setDuree(int duree) {
         this.duree = duree;
     }
-    
-    @Column(nullable=false)
-    private int duree;
- 
 
+    public Client(String nom, String prenom, Date dateNaissance, String telephone, String email, String motDePasse,Date dateDebutAbonnement, int duree) {
+        super(nom, prenom, dateNaissance, telephone, email, motDePasse);
+        this.dateDebutAbonnement = dateDebutAbonnement;
+        this.duree = duree;
+    }
+    public Client(){}
+    
     @Override
     public String toString() {
         return "com.mycompany.proactif.entites.Client[ id=" + super.getId() + " ]";

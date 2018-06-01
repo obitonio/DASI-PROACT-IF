@@ -22,7 +22,7 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Utilisateur implements Serializable {
+public abstract class Utilisateur implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,6 +47,7 @@ public class Utilisateur implements Serializable {
     
     @Column(nullable=false)
     private String motDePasse;
+    
 
     public Utilisateur() {
     }

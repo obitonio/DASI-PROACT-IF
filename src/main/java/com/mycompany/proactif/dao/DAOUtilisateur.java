@@ -26,6 +26,7 @@ public class DAOUtilisateur extends DAOInstance<Utilisateur> {
         }
         catch(Exception e){
             objetLocal = null;
+            //TODO : améliorer la réponse de contenue si l'on voiq=t qu'il y a un match avec les adresses mails
             return false;
         }
         return true; 

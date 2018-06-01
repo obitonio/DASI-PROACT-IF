@@ -6,8 +6,11 @@
 package com.mycompany.proactif.entites;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -20,6 +23,23 @@ public class Employe extends Utilisateur implements Serializable {
     
     @Column(nullable=false)
     private String numContrat;
+    @Column(nullable=false)
+    private int salaire;
+    
+    @Column(nullable=false)
+    private int disponibilite;
+    
+    @OneToMany(mappedBy = "employe")
+    private List<Intervention> listeDesInterventions;
+
+        public Employe(String nom, String prenom, Date dateNaissance, String telephone, String email, String motDePasse, String numContrat, int salaire, int disponibilite) {
+        super(nom, prenom, dateNaissance, telephone, email, motDePasse);
+        this.numContrat = numContrat;
+        this.salaire = salaire;
+        this.disponibilite = disponibilite;
+    }
+    
+    public Employe(){}
 
     public void setNumContrat(String numContrat) {
         this.numContrat = numContrat;
@@ -44,12 +64,14 @@ public class Employe extends Utilisateur implements Serializable {
     public int getDisponibilite() {
         return disponibilite;
     }
-    
-    @Column(nullable=false)
-    private int salaire;
-    
-    @Column(nullable=false)
-    private int disponibilite;
+
+    public List<Intervention> getListeDesInterventions() {
+        return listeDesInterventions;
+    }
+
+    public void setListeDesInterventions(List<Intervention> listeDesInterventions) {
+        this.listeDesInterventions = listeDesInterventions;
+    }
 
     @Override
     public String toString() {
