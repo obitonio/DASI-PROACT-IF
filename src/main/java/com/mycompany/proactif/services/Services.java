@@ -13,6 +13,7 @@ import com.mycompany.proactif.dao.JpaUtil;
 import com.mycompany.proactif.entites.Intervention;
 import com.mycompany.proactif.util.Comparateur;
 import com.mycompany.proactif.util.Comparateur.FILTRES;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -73,6 +74,16 @@ public class Services {
         Comparateur monComparateur = new Comparateur (monFiltre, croissant);
         Collections.sort(listeInterventions, monComparateur);
         return true;
+    }
+    public static List<Intervention> rechercher(List<Intervention> listeIntervention, String motClef){
+        
+        List<Intervention> maNouvelleListe = new ArrayList<>();
+        
+        for(Intervention monIntervention : listeIntervention){
+            if(monIntervention.toString().toLowerCase().contains(motClef.toLowerCase()))
+               maNouvelleListe.add(monIntervention);
+        }
+        return maNouvelleListe;
     }
     
     /**

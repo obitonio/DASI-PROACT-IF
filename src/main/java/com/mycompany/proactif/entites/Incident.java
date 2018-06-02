@@ -26,7 +26,7 @@ public class Incident extends Intervention implements Serializable {
     // ======================= Constructeurs
     public Incident() {}
     
-    public Incident(Client client, String intitule, Date dateDebut, String descriptionClient, String unLibelle, String unePriorite) {
+    public Incident(Client client, String intitule, Date dateDebut, String descriptionClient, String unePriorite) {
         super(client, intitule, dateDebut, descriptionClient);
         this.priorite = unePriorite;
     }

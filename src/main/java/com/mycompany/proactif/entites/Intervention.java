@@ -173,7 +173,22 @@ public class Intervention implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.proactif.entites.Intervention[ id=" + id + " ]";
+        String contenuDeLIntervention = this.client.toString() + '\n';
+        if(this.employe != null)
+            contenuDeLIntervention += this.employe.toString() + '\n';
+            
+        contenuDeLIntervention += this.dateDebut.toString() + '\n';
+        
+        if(this.dateFin != null)
+            contenuDeLIntervention +=this.dateFin.toString() + '\n';
+        
+        contenuDeLIntervention += this.descriptionClient + '\n';
+        
+        if(this.commentaireEmploye != null)
+            contenuDeLIntervention +=  this.commentaireEmploye + '\n';
+        contenuDeLIntervention += this.intitule + '\n' +
+                                String.valueOf(this.etat);
+        return contenuDeLIntervention;                
     }
     
 }
