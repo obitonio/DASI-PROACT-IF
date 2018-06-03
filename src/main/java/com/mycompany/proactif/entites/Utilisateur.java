@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -48,6 +49,9 @@ public abstract class Utilisateur implements Serializable {
     
     @Column(nullable=false)
     private String motDePasse;
+    
+    @ManyToOne
+    private Adresse adresse;
     
     // ======================= Constructeurs
     public Utilisateur(String nom, String prenom, Date dateNaissance, String telephone, String email, String motDePasse) {
