@@ -6,6 +6,7 @@
 package com.mycompany.proactif.entites;
 
 import com.google.maps.model.LatLng;
+import com.mycompany.proactif.util.GeoTest;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,13 +48,14 @@ public class Adresse implements Serializable {
     // ======================= Constructeurs
     public Adresse() {}
     
-    public Adresse(int unNumero, String uneRue, String unCodePostal, String uneVille, String desInformations, String desCoordonneesGPS) {
+    public Adresse(int unNumero, String uneRue, String unCodePostal, String uneVille, String desInformations) {
         this.numero = unNumero;
         this.rue = uneRue;
         this.codePostal = unCodePostal;
         this.ville = uneVille;
         this.informations = desInformations;
-        this.coordonneesGPS = desCoordonneesGPS;
+        this.coordonneesGPS = GeoTest.getLatLng(numero + " " + rue + " " +
+                                        codePostal + " " + ville);
     }
 
     // ======================= Méthodes publiques
