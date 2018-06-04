@@ -12,7 +12,9 @@ import com.mycompany.proactif.entites.Utilisateur;
 import com.mycompany.proactif.dao.DAOUtilisateur;
 import static com.mycompany.proactif.dao.DAOEmploye.getEmployeLePlusProche;
 import static com.mycompany.proactif.dao.DAOEmploye.getEmployesDisponibles;
+import com.mycompany.proactif.dao.DAOInstance;
 import com.mycompany.proactif.dao.JpaUtil;
+import com.mycompany.proactif.entites.Client;
 import com.mycompany.proactif.entites.Employe;
 import com.mycompany.proactif.entites.Intervention;
 import com.mycompany.proactif.util.Comparateur;
@@ -126,21 +128,34 @@ public class Services {
      */
     public static boolean creerDemandeIntervention(Intervention intervention) {
         
-        Employe employe = getEmployeLePlusProche(getEmployesDisponibles(), intervention);
+        Employe employeattribue = getEmployeLePlusProche(getEmployesDisponibles(), intervention);
+        Client clientIntervention = intervention.getClient();
         
-        if(employe != null){
+        if(employeattribue == null){
             return false;
         }
         else{
-            intervention.setEmploye(employe);
+            intervention.setEmploye(employeattribue);
+            employeattribue.setDisponibilite(0);
+            employeattribue.getListeDesInterventions().add(intervention);
+            clientIntervention.getListeDesInterventions().add(intervention);
+            
             try{
                 commencerTransactionEcriture();
                 DAOIntervention maDAO = new DAOIntervention();
                 maDAO.creer(intervention);
+                
+                DAOUtilisateur maDAOUtilisateur = new DAOUtilisateur();
+                maDAOUtilisateur.setObjetLocal(employeattribue);
+                maDAOUtilisateur.mettreAJour();
+                
+                maDAOUtilisateur.setObjetLocal(clientIntervention);
+                maDAOUtilisateur.mettreAJour();
                 finirTransactionEcriture();
                 return true;
             }
             catch(Exception e){
+                finirTransactionEcriture();
                 return false;
             }
         

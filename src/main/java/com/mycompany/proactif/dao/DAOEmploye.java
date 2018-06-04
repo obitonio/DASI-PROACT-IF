@@ -35,7 +35,7 @@ public class DAOEmploye extends DAOAbstraitUtilisateur<Employe> {
     
     public static Employe getEmployeLePlusProche(List<Employe> listeEmploye, Intervention intervention){
             
-        if(listeEmploye == null || listeEmploye.size == 0)
+        if(listeEmploye == null || listeEmploye.isEmpty())
             return null;
         else if(listeEmploye.size()==1)
             return listeEmploye.get(0);

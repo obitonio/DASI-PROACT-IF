@@ -81,11 +81,11 @@ public class Intervention implements Serializable {
         return serialVersionUID;
     }
 
-    public Utilisateur getClient() {
+    public Client getClient() {
         return client;
     }
 
-    public Utilisateur getEmploye() {
+    public Employe getEmploye() {
         return employe;
     }
 
