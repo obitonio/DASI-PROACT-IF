@@ -5,6 +5,7 @@
  */
 package com.mycompany.proactif.services;
 
+import com.mycompany.proactif.dao.DAOEmploye;
 import com.mycompany.proactif.entites.Client;
 import com.mycompany.proactif.entites.Employe;
 import com.mycompany.proactif.entites.Intervention;
@@ -18,6 +19,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import com.mycompany.proactif.dao.DAOClient;
+import com.mycompany.proactif.dao.JpaUtil;
 
 /**
  *
@@ -34,6 +37,8 @@ public class ServicesTest {
     
     @BeforeClass
     public static void setUpClass() {
+        
+        JpaUtil.init();
         
         client1 = new Client("Antoine", "Mathat", new Date(), "0677500460", "amathat@insa-lyon.fr", "123456", new Date(), 6);
         employe1 = new Employe("Jean", "Neymar", new Date(), "0690239405", "jhameau@insa-lyon.fr", "1234567", "696965", 9,8);
@@ -71,10 +76,17 @@ public class ServicesTest {
     @Test
     public void testCreerUtilisateur() {
         System.out.println("creerUtilisateur");
-        Utilisateur unUtilisateur = null;
-        Services.creerUtilisateur(unUtilisateur);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+   
+        // Création des utilisateurs dans la base
+        Services.creerUtilisateur(client1);
+        Services.creerUtilisateur(employe1);
+        
+        // Recherche des utilisateurs dans la base
+        DAOClient daoClient = new DAOClient();
+        DAOEmploye daoEmploye = new DAOEmploye();
+                 
+        assertTrue(daoClient.trouverParId(client1.getId()));
+        assertTrue(daoEmploye.trouverParId(employe1.getId()));     
     }
 
     /**
