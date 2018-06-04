@@ -5,15 +5,13 @@
  */
 package com.mycompany.proactif.dao;
 
-import com.mycompany.proactif.entites.Intervention;
 import com.mycompany.proactif.entites.Utilisateur;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Query;
 
 /**
  *
  * @author antoinemathat
+ * @param <T> Type de l'utilisteur
  */
 public class DAOAbstraitUtilisateur<T extends Utilisateur> extends DAOInstance<T> {
     
