@@ -98,18 +98,20 @@ public class Services {
      * @param motDePasse Mot de passe de l'utilisateur
      * @return true en cas de succès, false en cas d'echec
      */
-    public static boolean authentifier(String email, String motDePasse) {
+    public static Utilisateur authentifier(String email, String motDePasse) {
+        
+        Utilisateur utilisateur = null;
+        DAOUtilisateur maDAO = new DAOUtilisateur();
         
         commencerTransactionLecture();
-        DAOUtilisateur maDAO = new DAOUtilisateur();
-        if(maDAO.authentifier(email, motDePasse)){
-            finirTransactionLecture();
-            return true;
+        
+        if (maDAO.authentifier(email, motDePasse)) {
+            utilisateur = maDAO.getObjetLocal();
         }
-        else{
-            finirTransactionLecture();
-            return false;
-        }  
+  
+        finirTransactionLecture();
+        
+        return utilisateur;
     }
     public static boolean trierListe(List<Intervention> listeInterventions,FILTRES monFiltre, boolean croissant){
         

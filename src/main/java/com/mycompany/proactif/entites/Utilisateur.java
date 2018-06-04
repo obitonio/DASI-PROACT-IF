@@ -44,7 +44,7 @@ public abstract class Utilisateur implements Serializable {
     @Column(nullable=false)
     private String telephone;
     
-    @Column(nullable=false)
+    @Column(nullable=false, unique=true)
     private String email;
     
     @Column(nullable=false)
@@ -156,6 +156,13 @@ public abstract class Utilisateur implements Serializable {
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
+        
+        if (!this.prenom.equals(other.getPrenom()) ||
+            !this.nom.equals(other.getNom()) || 
+            !this.email.equals(other.getEmail())) {
+            return false;
+        }
+        
         return true;
     }
 
