@@ -183,6 +183,8 @@ public class Services {
     
     public static RetourTerminerIntervention TerminerIntervention(Intervention intervention, String commentaire, int etat){
         
+        RetourTerminerIntervention codeRetour= RetourTerminerIntervention.ErreurBase;
+        
         intervention.setEtat(etat);
         intervention.setCommentaireEmploye(commentaire);
         intervention.setDateFin(new Date());
@@ -190,6 +192,7 @@ public class Services {
         Employe employe = intervention.getEmploye();
         String adresseCLientIntervention = intervention.getClient().getAdresse().toGeoString();
         employe.setPosition(GeoTest.getLatLng(adresseCLientIntervention));
+        employe.setDisponibilite(1);
         
         try{
             commencerTransactionEcriture();
@@ -197,15 +200,22 @@ public class Services {
             maDAOIntervention.setObjetLocal(intervention);
             maDAOIntervention.mettreAJour();
             
-            
-            
-            finirTransactionEcriture();
-            return RetourTerminerIntervention.Succes;
+            DAOUtilisateur maDAOUtilisateur = new DAOUtilisateur();
+            maDAOUtilisateur.setObjetLocal(employe);
+            maDAOUtilisateur.mettreAJour();
+                        
+            if(etat == -1)
+                codeRetour = RetourTerminerIntervention.InterventionNonReussie;
+            else
+                codeRetour = RetourTerminerIntervention.Succes;
             }
             catch(Exception e){
-                finirTransactionEcriture();
-                return RetourTerminerIntervention.ErreurBase;
+                codeRetour = RetourTerminerIntervention.ErreurBase;
             }
+            finally{
+                finirTransactionEcriture();
+            }
+        return codeRetour;
     }
     
     

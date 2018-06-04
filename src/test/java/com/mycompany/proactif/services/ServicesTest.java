@@ -169,8 +169,8 @@ public class ServicesTest {
     @Test
     public void testCreerDemandeIntervention() {
         System.out.println("creerDemandeIntervention");
-        boolean expResult = false;
-        boolean result = Services.creerDemandeIntervention(a1);
+       
+        
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

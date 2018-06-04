@@ -37,6 +37,7 @@ public class Employe extends Utilisateur implements Serializable {
     
     @Column
     private LatLng position;
+    
 
     // ======================= Constructeurs
     public Employe(String nom, String prenom, Date dateNaissance, String telephone, String email, String motDePasse, String numContrat, int salaire, int disponibilite) {
