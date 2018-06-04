@@ -63,12 +63,9 @@ public class ServicesTest {
         
         client1 = new Client("Antoine", "Mathat", new Date(), "0677500460", "amathat@insa-lyon.fr", "123456", new Date(), 6);
         client2 = new Client("George", "Ration", new Date(), "0467382904", "ration@yahoo.fr", "123456", new Date(), 6);
-<<<<<<< HEAD
         client3 = new Client("Pierre", "Kiroule", new Date(), "0467382904", "pierre@yahoo.fr", "123456", new Date(), 6);
-=======
-        client3 = new Client("Pascal", "Lebon", new Date(), "0789340718", "pl@yahoo.fr", "123456", new Date(), 6);
+        client4 = new Client("Pascal", "Lebon", new Date(), "0789340718", "pl@yahoo.fr", "123456", new Date(), 6);
         
->>>>>>> e6f6bfd3d13b1513d799f515186b217c915fe2d1
         client1.setAdresse(adresseVrai);
         client2.setAdresse(adresseFausse);
         client3.setAdresse(adrCli3);
@@ -79,14 +76,11 @@ public class ServicesTest {
     
         employe1.setAdresse(adresseVrai2);
         employe2.setAdresse(adresseFausse2);
-<<<<<<< HEAD
         
-=======
         employe3.setAdresse(adrEmp3);
         
         Services.creerUtilisateur(client3);
         Services.creerUtilisateur(employe3);
->>>>>>> e6f6bfd3d13b1513d799f515186b217c915fe2d1
     }
     
     @AfterClass
