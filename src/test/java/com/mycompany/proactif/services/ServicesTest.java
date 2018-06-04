@@ -21,6 +21,10 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import com.mycompany.proactif.dao.JpaUtil;
 import com.mycompany.proactif.entites.Adresse;
+import com.mycompany.proactif.entites.Animal;
+import com.mycompany.proactif.entites.Incident;
+import com.mycompany.proactif.entites.Livraison;
+import java.util.ArrayList;
 
 /**
  *
@@ -31,9 +35,21 @@ public class ServicesTest {
     public ServicesTest() {
     }
     
-    private static Client client1, client2;
+    private static Client client1, client2, client3;
     
     private static Employe employe1, employe2;
+    
+    Intervention i1 = new Incident(client1, "Fuite eau", "De l'eau coule derrière le robinet de la cuisine", "URGENT");
+    Intervention i2 = new Incident(client2, "Toilettes bouchées", "Mes toilettes sont bouchées", "À TRAITER");
+    Intervention i3 = new Incident(client1, "Problème avec ma gouttière", "Les feuilles ont bouchés ma gouttière", "URGENT");
+
+    Intervention a1 = new Animal(client1, "Nourir mon chat", "Les croquettes sont dans le placard d ela cuisine", "Tigrou", "CHAT");
+    Intervention a2 = new Animal(client2, "Sortir mon chien", "La laisse est sur le porte manteau", "Théo", "CHIEN");
+    Intervention a3 = new Animal(client1, "Nourir mon serpent", "Attention à pas vous faire mordre", "Rex", "Serpent");
+
+    Intervention l1 = new Livraison(client2, "Livraison G", "Le livreur passe à 18h30", "Jean", "01/06/2018 - 18:30", "093KS38U375");
+    Intervention l2 = new Livraison(client2, "Livraison H", "Le livreur passe à 11h30","Faissal", "04/06/2018 - 11:30", "093KS38U374");
+    Intervention l3 = new Livraison(client1, "Livraison I", "Le livreur passe à 17h00", "Arthur", "12/06/2018 - 17:00", "093KS38U373");
     
     @BeforeClass
     public static void setUpClass() {
@@ -47,6 +63,7 @@ public class ServicesTest {
         
         client1 = new Client("Antoine", "Mathat", new Date(), "0677500460", "amathat@insa-lyon.fr", "123456", new Date(), 6);
         client2 = new Client("George", "Ration", new Date(), "0467382904", "ration@yahoo.fr", "123456", new Date(), 6);
+        client3 = new Client("Pierre", "Kiroule", new Date(), "0467382904", "pierre@yahoo.fr", "123456", new Date(), 6);
         client1.setAdresse(adresseVrai);
         client2.setAdresse(adresseFausse);
         
@@ -54,6 +71,7 @@ public class ServicesTest {
         employe2 = new Employe("Théo", "Benzenma", new Date(), "0923849605", "tt@gmail.com", "1234567", "696965", 9,8); 
         employe1.setAdresse(adresseVrai2);
         employe2.setAdresse(adresseFausse2);
+        
     }
     
     @AfterClass
@@ -105,14 +123,17 @@ public class ServicesTest {
     @Test
     public void testTrierListe() {
         System.out.println("trierListe");
-        List<Intervention> listeInterventions = null;
-        Comparateur.FILTRES monFiltre = null;
-        boolean croissant = false;
-        boolean expResult = false;
+        boolean croissant;
+        boolean expResult;
+        
+        
+        
+        //DATE
+        List<Intervention> expectedListeFiltreDate = new ArrayList<>();
+        croissant = true;
+        Comparateur.FILTRES monFiltre = Comparateur.FILTRES.DATE;
         boolean result = Services.trierListe(listeInterventions, monFiltre, croissant);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(true, result);
     }
 
     /**
@@ -136,9 +157,8 @@ public class ServicesTest {
     @Test
     public void testCreerDemandeIntervention() {
         System.out.println("creerDemandeIntervention");
-        Intervention intervention = null;
         boolean expResult = false;
-        boolean result = Services.creerDemandeIntervention(intervention);
+        boolean result = Services.creerDemandeIntervention(a1);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

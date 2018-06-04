@@ -24,6 +24,7 @@ import com.mycompany.proactif.util.GeoTest;
 import com.mycompany.proactif.util.Message;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 
@@ -35,6 +36,12 @@ public class Services {
     
     public enum RetourCreationUtilisateur {
         LatLngIntrouvable,
+        ErreurBase,
+        Succes
+    };
+    
+    public enum RetourCreationIntervention {
+        AucunEmployeDisponible,
         ErreurBase,
         Succes
     };
@@ -126,19 +133,21 @@ public class Services {
      * @param intervention La demande à créer
      * @return 
      */
-    public static boolean creerDemandeIntervention(Intervention intervention) {
+    public static RetourCreationIntervention creerDemandeIntervention(Intervention intervention) {
         
         Employe employeattribue = getEmployeLePlusProche(getEmployesDisponibles(), intervention);
         Client clientIntervention = intervention.getClient();
         
         if(employeattribue == null){
-            return false;
+            return RetourCreationIntervention.AucunEmployeDisponible;
         }
         else{
             intervention.setEmploye(employeattribue);
+            intervention.setDateDebut(new Date());
             employeattribue.setDisponibilite(0);
             employeattribue.getListeDesInterventions().add(intervention);
             clientIntervention.getListeDesInterventions().add(intervention);
+            
             
             try{
                 commencerTransactionEcriture();
@@ -152,13 +161,12 @@ public class Services {
                 maDAOUtilisateur.setObjetLocal(clientIntervention);
                 maDAOUtilisateur.mettreAJour();
                 finirTransactionEcriture();
-                return true;
+                return RetourCreationIntervention.Succes;
             }
             catch(Exception e){
                 finirTransactionEcriture();
-                return false;
-            }
-        
+                return RetourCreationIntervention.ErreurBase;
+            }   
         }
         
 

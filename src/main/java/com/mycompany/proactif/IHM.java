@@ -56,17 +56,17 @@ public class IHM {
     public static void testRecherche(Client u1)
     {
         List<Intervention> listeInterventions = new ArrayList<>();
-        listeInterventions.add(new Incident(u1, "Fuite eau", new Date(), "De l'eau coule derrière le robinet de la cuisine", "URGENT"));
-        listeInterventions.add(new Incident(u1, "Toilettes bouchées", new Date(), "Mes toilettes sont bouchées", "À TRAITER"));
-        listeInterventions.add(new Incident(u1, "Problème avec ma gouttière", new Date(), "Les feuilles ont bouchés ma gouttière", "URGENT"));
+        listeInterventions.add(new Incident(u1, "Fuite eau", "De l'eau coule derrière le robinet de la cuisine", "URGENT"));
+        listeInterventions.add(new Incident(u1, "Toilettes bouchées", "Mes toilettes sont bouchées", "À TRAITER"));
+        listeInterventions.add(new Incident(u1, "Problème avec ma gouttière", "Les feuilles ont bouchés ma gouttière", "URGENT"));
         
-        listeInterventions.add(new Animal(u1, "Nourir mon chat", new Date(), "Les croquettes sont dans le placard d ela cuisine", "Tigrou", "CHAT"));
-        listeInterventions.add(new Animal(u1, "Sortir mon chien", new Date(), "La laisse est sur le porte manteau", "Théo", "CHIEN"));
-        listeInterventions.add(new Animal(u1, "Nourir mon serpent", new Date(), "Attention à pas vous faire mordre", "Rex", "Serpent"));
+        listeInterventions.add(new Animal(u1, "Nourir mon chat", "Les croquettes sont dans le placard d ela cuisine", "Tigrou", "CHAT"));
+        listeInterventions.add(new Animal(u1, "Sortir mon chien", "La laisse est sur le porte manteau", "Théo", "CHIEN"));
+        listeInterventions.add(new Animal(u1, "Nourir mon serpent", "Attention à pas vous faire mordre", "Rex", "Serpent"));
         
-        listeInterventions.add(new Livraison(u1, "Livraison G", new Date(), "Le livreur passe à 18h30", "Jean", "01/06/2018 - 18:30", "093KS38U375"));
-        listeInterventions.add(new Livraison(u1, "Livraison H", new Date(), "Le livreur passe à 11h30","Faissal", "04/06/2018 - 11:30", "093KS38U374"));
-        listeInterventions.add(new Livraison(u1, "Livraison I", new Date(), "Le livreur passe à 17h00", "Arthur", "12/06/2018 - 17:00", "093KS38U373"));
+        listeInterventions.add(new Livraison(u1, "Livraison G", "Le livreur passe à 18h30", "Jean", "01/06/2018 - 18:30", "093KS38U375"));
+        listeInterventions.add(new Livraison(u1, "Livraison H", "Le livreur passe à 11h30","Faissal", "04/06/2018 - 11:30", "093KS38U374"));
+        listeInterventions.add(new Livraison(u1, "Livraison I", "Le livreur passe à 17h00", "Arthur", "12/06/2018 - 17:00", "093KS38U373"));
         
         listeInterventions = Services.rechercher(listeInterventions,"NouRIR");
 
