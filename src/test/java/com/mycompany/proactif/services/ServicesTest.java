@@ -90,13 +90,15 @@ public class ServicesTest {
     @Test
     public void testAuthentifier() {
         System.out.println("authentifier");
-        String email = "";
-        String motDePasse = "";
-        boolean expResult = false;
-        boolean result = Services.authentifier(email, motDePasse);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        Services.creerUtilisateur(client1);
+        Services.creerUtilisateur(employe1);
+        
+        assertTrue(Services.authentifier(client1.getEmail(), client1.getMotDePasse()));
+        assertTrue(Services.authentifier(employe1.getEmail(), employe1.getMotDePasse()));
+        
+        assertFalse(Services.authentifier(client2.getEmail(), client2.getMotDePasse()));
+        assertFalse(Services.authentifier(employe2.getEmail(), employe2.getMotDePasse()));
     }
 
     /**
