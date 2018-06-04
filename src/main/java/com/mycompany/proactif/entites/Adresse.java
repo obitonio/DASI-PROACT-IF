@@ -5,6 +5,7 @@
  */
 package com.mycompany.proactif.entites;
 
+import com.google.maps.model.LatLng;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,8 +41,8 @@ public class Adresse implements Serializable {
     @Column(nullable=false)
     private String informations;
     
-    @Column(nullable=false)
-    private String coordonneesGPS;
+    @Column
+    private LatLng coordonneesGPS;
     
     // ======================= Constructeurs
     public Adresse() {}
@@ -106,13 +107,14 @@ public class Adresse implements Serializable {
         this.informations = informations;
     }
 
-    public String getCoordonneesGPS() {
+    public LatLng getCoordonneesGPS() {
         return coordonneesGPS;
     }
 
-    public void setCoordonneesGPS(String coordonneesGPS) {
+    public void setCoordonneesGPS(LatLng coordonneesGPS) {
         this.coordonneesGPS = coordonneesGPS;
     }
+    
     
 
     // ======================= Surcharges
