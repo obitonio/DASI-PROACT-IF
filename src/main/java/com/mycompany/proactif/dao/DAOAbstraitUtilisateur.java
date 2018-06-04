@@ -15,6 +15,13 @@ import javax.persistence.Query;
  */
 public class DAOAbstraitUtilisateur<T extends Utilisateur> extends DAOInstance<T> {
     
+    @Override 
+    public void creer (T object) {
+        JpaUtil.obtenirEntityManager().persist(object.getAdresse());
+        JpaUtil.obtenirEntityManager().persist(object);
+        this.objetLocal = object;
+    }
+    
     public boolean authentifier(String email, String motDePasse){
         
         String jpql = "SELECT e FROM Utilisateur e WHERE e.email = :email AND e.motDePasse = :motDePasse";

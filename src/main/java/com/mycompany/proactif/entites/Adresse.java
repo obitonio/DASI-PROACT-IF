@@ -150,4 +150,8 @@ public class Adresse implements Serializable {
         return message;
     }
     
+    public String toGeoString() {
+        return this.getNumero() + " " + this.getRue() + ", " + this.getVille();
+    }
+    
 }

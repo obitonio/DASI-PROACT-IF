@@ -21,6 +21,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import com.mycompany.proactif.dao.DAOClient;
 import com.mycompany.proactif.dao.JpaUtil;
+import com.mycompany.proactif.entites.Adresse;
+import com.mycompany.proactif.util.DebugLogger;
 
 /**
  *
@@ -31,17 +33,29 @@ public class ServicesTest {
     public ServicesTest() {
     }
     
-    private static Client client1;
+    private static Client client1, client2;
     
-    private static Employe employe1;
+    private static Employe employe1, employe2;
     
     @BeforeClass
     public static void setUpClass() {
         
         JpaUtil.init();
+     
+        Adresse adresseVrai = new Adresse(44, "Rue de bruxelles", "69100", "Villeurbanne", "");
+        Adresse adresseFausse = new Adresse(90, "rue zzzzzzzzz", "69100", "Villedsfsdfl", "");
+        Adresse adresseVrai2 = new Adresse(79, "Rue de bruxelles", "69100", "Villeurbanne", "");
+        Adresse adresseFausse2 = new Adresse(9, "rue zzzzzzzzz", "69100", "Villedsfsdfl", "");
         
         client1 = new Client("Antoine", "Mathat", new Date(), "0677500460", "amathat@insa-lyon.fr", "123456", new Date(), 6);
+        client2 = new Client("George", "Ration", new Date(), "0467382904", "ration@yahoo.fr", "123456", new Date(), 6);
+        client1.setAdresse(adresseVrai);
+        client2.setAdresse(adresseFausse);
+        
         employe1 = new Employe("Jean", "Neymar", new Date(), "0690239405", "jhameau@insa-lyon.fr", "1234567", "696965", 9,8);
+        employe2 = new Employe("Théo", "Benzenma", new Date(), "0923849605", "tt@gmail.com", "1234567", "696965", 9,8); 
+        employe1.setAdresse(adresseVrai2);
+        employe2.setAdresse(adresseFausse2);
     }
     
     @AfterClass
@@ -57,20 +71,6 @@ public class ServicesTest {
     }
 
     /**
-     * Test of ajouterUtilisateur method, of class Services.
-     */
-    @Test
-    public void testAjouterUtilisateur() {
-        System.out.println("ajouterUtilisateur");
-        Utilisateur utilisateur = null;
-        boolean expResult = false;
-        boolean result = Services.ajouterUtilisateur(utilisateur);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of creerUtilisateur method, of class Services.
      */
     @Test
@@ -78,15 +78,10 @@ public class ServicesTest {
         System.out.println("creerUtilisateur");
    
         // Création des utilisateurs dans la base
-        Services.creerUtilisateur(client1);
-        Services.creerUtilisateur(employe1);
-        
-        // Recherche des utilisateurs dans la base
-        DAOClient daoClient = new DAOClient();
-        DAOEmploye daoEmploye = new DAOEmploye();
-                 
-        assertTrue(daoClient.trouverParId(client1.getId()));
-        assertTrue(daoEmploye.trouverParId(employe1.getId()));     
+        assertEquals(Services.RetourCreationUtilisateur.Succes, Services.creerUtilisateur(client1));
+        assertEquals(Services.RetourCreationUtilisateur.LatLngIntrouvable, Services.creerUtilisateur(client2));
+        assertEquals(Services.RetourCreationUtilisateur.Succes, Services.creerUtilisateur(employe1));
+        assertEquals(Services.RetourCreationUtilisateur.LatLngIntrouvable, Services.creerUtilisateur(client2));  
     }
 
     /**
