@@ -19,10 +19,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import com.mycompany.proactif.dao.DAOClient;
 import com.mycompany.proactif.dao.JpaUtil;
 import com.mycompany.proactif.entites.Adresse;
-import com.mycompany.proactif.util.DebugLogger;
 
 /**
  *
@@ -56,8 +54,6 @@ public class ServicesTest {
         employe2 = new Employe("Théo", "Benzenma", new Date(), "0923849605", "tt@gmail.com", "1234567", "696965", 9,8); 
         employe1.setAdresse(adresseVrai2);
         employe2.setAdresse(adresseFausse2);
-        
-        Intervention monIntervention1
     }
     
     @AfterClass
