@@ -28,9 +28,6 @@ public class DAOEmploye extends DAOAbstraitUtilisateur<Employe> {
         catch(Exception e){
             return null;
         }
-            
-        
-    
     }
     
     public static Employe getEmployeLePlusProche(List<Employe> listeEmploye, Intervention intervention){
