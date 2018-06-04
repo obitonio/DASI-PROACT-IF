@@ -160,16 +160,57 @@ public class ServicesTest {
     public void testTrierListe() {
         System.out.println("trierListe");
         boolean croissant;
-        boolean expResult;
         
+        List<Intervention> maListe = new ArrayList<>();
         
+        maListe.add(a1); maListe.add(a2); maListe.add(a3);
+        maListe.add(i1); maListe.add(i2); maListe.add(i3);
+        maListe.add(l1); maListe.add(l2); maListe.add(l3);
         
-        //DATE
-        List<Intervention> expectedListeFiltreDate = new ArrayList<>();
+        for(Intervention intervention : maListe)
+            intervention.setDateDebut(new Date());
+        
+       
+        //DATE 1
+        System.out.println("Date1");
+        List<Intervention> expectedListe = new ArrayList<>();
+        expectedListe.add(a1); expectedListe.add(a2); expectedListe.add(a3);
+        expectedListe.add(i1); expectedListe.add(i2); expectedListe.add(i3);
+        expectedListe.add(l1); expectedListe.add(l2); expectedListe.add(l3);
         croissant = true;
         Comparateur.FILTRES monFiltre = Comparateur.FILTRES.DATE;
-        boolean result = Services.trierListe(listeInterventions, monFiltre, croissant);
-        assertEquals(true, result);
+        boolean result = Services.trierListe(maListe, monFiltre, croissant);
+        assertTrue(result);
+        assertEquals(maListe, expectedListe);
+        
+        //DATE 2
+        System.out.println("Date2");
+        expectedListe.clear();
+  
+        expectedListe.add(l3); expectedListe.add(l2); expectedListe.add(l1);
+        expectedListe.add(i3); expectedListe.add(i2);expectedListe.add(i1);
+        expectedListe.add(a3); expectedListe.add(a2); expectedListe.add(a1);
+        croissant = false;
+        
+        result = Services.trierListe(maListe, monFiltre, croissant);
+        assertTrue(result);
+        assertEquals(maListe, expectedListe);
+        
+        //INTITULE 1
+        System.out.println("Intitule1");
+        expectedListe.clear();
+        
+        expectedListe.add(i1); expectedListe.add(l1); expectedListe.add(l2);
+        expectedListe.add(l3); expectedListe.add(a1); expectedListe.add(a3);
+        expectedListe.add(i3); expectedListe.add(a2); expectedListe.add(i2);
+        
+        croissant = true;
+        monFiltre = Comparateur.FILTRES.INTITULE;
+        
+        result = Services.trierListe(maListe, monFiltre, croissant);
+        assertTrue(result);
+        assertEquals(maListe, expectedListe);
+        
     }
 
     /**
@@ -178,13 +219,19 @@ public class ServicesTest {
     @Test
     public void testRechercher() {
         System.out.println("rechercher");
-        List<Intervention> listeIntervention = null;
-        String motClef = "";
-        List<Intervention> expResult = null;
-        List<Intervention> result = Services.rechercher(listeIntervention, motClef);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        List<Intervention> maListe = new ArrayList<>();
+        
+        maListe.add(a1); maListe.add(a2); maListe.add(a3);
+        maListe.add(i1); maListe.add(i2); maListe.add(i3);
+        maListe.add(l1); maListe.add(l2); maListe.add(l3);
+        
+        
+        List<Intervention> listeReduite =  Services.rechercher(maListe, "Nourir");
+        
+        List<Intervention> listeAttendue = new ArrayList<>();
+        listeAttendue.add(a1);
+        listeAttendue.add(a3);
     }
 
     /**
