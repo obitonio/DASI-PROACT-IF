@@ -9,7 +9,10 @@ import com.mycompany.proactif.dao.DAOAbstraitUtilisateur;;
 import com.mycompany.proactif.dao.DAOIntervention;
 import com.mycompany.proactif.entites.Utilisateur;
 import com.mycompany.proactif.dao.DAOUtilisateur;
+import static com.mycompany.proactif.dao.DAOEmploye.getEmployeLePlusProche;
+import static com.mycompany.proactif.dao.DAOEmploye.getEmployesDisponibles;
 import com.mycompany.proactif.dao.JpaUtil;
+import com.mycompany.proactif.entites.Employe;
 import com.mycompany.proactif.entites.Intervention;
 import com.mycompany.proactif.util.Comparateur;
 import com.mycompany.proactif.util.Comparateur.FILTRES;
@@ -19,7 +22,7 @@ import java.util.List;
 
 
 /**
- *
+ * TODO : Tous les algos vont dans services + Instancier objet dans le service.
  * @author Jean
  */
 public class Services {
@@ -35,6 +38,8 @@ public class Services {
         finirTransactionEcriture();
         return true;
     }
+    
+    
     
     /**
      * Permet de créer un utilisateur de tout type
@@ -93,11 +98,26 @@ public class Services {
      */
     public static boolean creerDemandeIntervention(Intervention intervention) {
         
-        commencerTransactionEcriture();
-        DAOIntervention maDAO = new DAOIntervention();
-        maDAO.creer(intervention);
-        finirTransactionEcriture();
-        return true;
+        Employe employe = getEmployeLePlusProche(getEmployesDisponibles(), intervention);
+        
+        if(employe != null){
+            return false;
+        }
+        else{
+            intervention.setEmploye(employe);
+            try{
+                commencerTransactionEcriture();
+                DAOIntervention maDAO = new DAOIntervention();
+                maDAO.creer(intervention);
+                finirTransactionEcriture();
+                return true;
+            }
+            catch(Exception e){
+                return false;
+            }
+        
+        }
+        
 
     }
     

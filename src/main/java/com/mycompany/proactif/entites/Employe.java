@@ -5,6 +5,7 @@
  */
 package com.mycompany.proactif.entites;
 
+import com.google.maps.model.LatLng;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,10 +30,13 @@ public class Employe extends Utilisateur implements Serializable {
     private int salaire;
     
     @Column(nullable=false)
-    private int disponibilite;
+    private int disponibilite; // 0 = indisponible, 1 = disponuble;
     
     @OneToMany(mappedBy = "employe")
     private List<Intervention> listeDesInterventions;
+    
+    @Column
+    private LatLng position;
 
     // ======================= Constructeurs
     public Employe(String nom, String prenom, Date dateNaissance, String telephone, String email, String motDePasse, String numContrat, int salaire, int disponibilite) {
@@ -48,6 +52,16 @@ public class Employe extends Utilisateur implements Serializable {
     // ======================= Méthodes publiques
     
     // ======================= Getters / Setters
+    
+    public LatLng getPosition() {
+        return position;
+    }
+
+    public void setPosition(LatLng position) {
+        this.position = position;
+    }
+    
+    
     public void setNumContrat(String numContrat) {
         this.numContrat = numContrat;
     }
