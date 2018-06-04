@@ -138,28 +138,31 @@ public class Services {
     /**
      * Créer une demande d'intervention
      * @param intervention La demande à créer
+     * @param client Le client qui effectue la demande
      * @return 
      */
-    public static RetourCreationIntervention creerDemandeIntervention(Intervention intervention) {
+    public static RetourCreationIntervention creerDemandeIntervention(Client client, Intervention intervention) {
         
+        RetourCreationIntervention codeRetour = RetourCreationIntervention.Succes;
+     
         commencerTransactionLecture();
         Employe employeattribue = getEmployeLePlusProche(getEmployesDisponibles(), intervention);
         finirTransactionLecture();
-        Client clientIntervention = intervention.getClient();
         
         if(employeattribue == null){
-            return RetourCreationIntervention.AucunEmployeDisponible;
+            codeRetour = RetourCreationIntervention.AucunEmployeDisponible;
         }
-        else{
+        else {
+            
             intervention.setEmploye(employeattribue);
             intervention.setDateDebut(new Date());
             employeattribue.setDisponibilite(0);
             employeattribue.getListeDesInterventions().add(intervention);
-            clientIntervention.getListeDesInterventions().add(intervention);
+            client.getListeDesInterventions().add(intervention);
             
-            
-            try{
-                commencerTransactionEcriture();
+            try {
+                commencerTransactionEcriture(); 
+                                
                 DAOIntervention maDAO = new DAOIntervention();
                 maDAO.creer(intervention);
                 
@@ -167,18 +170,18 @@ public class Services {
                 maDAOUtilisateur.setObjetLocal(employeattribue);
                 maDAOUtilisateur.mettreAJour();
                 
-                maDAOUtilisateur.setObjetLocal(clientIntervention);
+                maDAOUtilisateur.setObjetLocal(client);
                 maDAOUtilisateur.mettreAJour();
+                
                 finirTransactionEcriture();
-                return RetourCreationIntervention.Succes;
             }
-            catch(Exception e){
-                finirTransactionEcriture();
-                return RetourCreationIntervention.ErreurBase;
-            }   
+            catch(Exception e) {
+                DebugLogger.log("[Service] creerDemandeIntervention", e);
+                codeRetour = RetourCreationIntervention.ErreurBase;
+            }
         }
         
-
+        return codeRetour;
     }
     
     public static RetourTerminerIntervention TerminerIntervention(Intervention intervention, String commentaire, int etat){
