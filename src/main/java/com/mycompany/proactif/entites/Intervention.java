@@ -58,10 +58,9 @@ public class Intervention implements Serializable {
     private int etat;
     
     // ======================= Constructeurs
-    public Intervention(Client client, String intitule, Date dateDebut, String descriptionClient) {
+    public Intervention(Client client, String intitule, String descriptionClient) {
         this.client = client;
         this.intitule = intitule;
-        this.dateDebut = dateDebut;
         this.descriptionClient = descriptionClient;
         this.etat =0;  //TODO A DEFINIR AVEC ANTOINE
         if(client != null){
@@ -82,11 +81,11 @@ public class Intervention implements Serializable {
         return serialVersionUID;
     }
 
-    public Utilisateur getClient() {
+    public Client getClient() {
         return client;
     }
 
-    public Utilisateur getEmploye() {
+    public Employe getEmploye() {
         return employe;
     }
 

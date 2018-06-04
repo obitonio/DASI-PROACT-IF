@@ -142,6 +142,12 @@ public class Adresse implements Serializable {
 
     @Override
     public String toString() {
+        String message = this.getNumero() + " " + this.getRue() + "\n";
+        message += this.getCodePostal() + " " + this.getVille();
+        return message;
+    }
+    
+    public String toStringDebug() {
         String message = "=== Adresse ===\n";
         message += this.getNumero() + " " + this.getRue() + "\n";
         message += this.getCodePostal() + " " + this.getVille() + "\n";

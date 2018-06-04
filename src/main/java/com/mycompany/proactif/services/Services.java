@@ -10,7 +10,12 @@ import com.mycompany.proactif.dao.DAOAbstraitUtilisateur;;
 import com.mycompany.proactif.dao.DAOIntervention;
 import com.mycompany.proactif.entites.Utilisateur;
 import com.mycompany.proactif.dao.DAOUtilisateur;
+import static com.mycompany.proactif.dao.DAOEmploye.getEmployeLePlusProche;
+import static com.mycompany.proactif.dao.DAOEmploye.getEmployesDisponibles;
+import com.mycompany.proactif.dao.DAOInstance;
 import com.mycompany.proactif.dao.JpaUtil;
+import com.mycompany.proactif.entites.Client;
+import com.mycompany.proactif.entites.Employe;
 import com.mycompany.proactif.entites.Intervention;
 import com.mycompany.proactif.util.Comparateur;
 import com.mycompany.proactif.util.Comparateur.FILTRES;
@@ -23,7 +28,7 @@ import java.util.List;
 
 
 /**
- *
+ * TODO : Tous les algos vont dans services + Instancier objet dans le service.
  * @author Jean
  */
 public class Services {
@@ -33,6 +38,8 @@ public class Services {
         ErreurBase,
         Succes
     };
+    
+    
     
     /**
      * Permet de créer un utilisateur de tout type
@@ -121,11 +128,39 @@ public class Services {
      */
     public static boolean creerDemandeIntervention(Intervention intervention) {
         
-        commencerTransactionEcriture();
-        DAOIntervention maDAO = new DAOIntervention();
-        maDAO.creer(intervention);
-        finirTransactionEcriture();
-        return true;
+        Employe employeattribue = getEmployeLePlusProche(getEmployesDisponibles(), intervention);
+        Client clientIntervention = intervention.getClient();
+        
+        if(employeattribue == null){
+            return false;
+        }
+        else{
+            intervention.setEmploye(employeattribue);
+            employeattribue.setDisponibilite(0);
+            employeattribue.getListeDesInterventions().add(intervention);
+            clientIntervention.getListeDesInterventions().add(intervention);
+            
+            try{
+                commencerTransactionEcriture();
+                DAOIntervention maDAO = new DAOIntervention();
+                maDAO.creer(intervention);
+                
+                DAOUtilisateur maDAOUtilisateur = new DAOUtilisateur();
+                maDAOUtilisateur.setObjetLocal(employeattribue);
+                maDAOUtilisateur.mettreAJour();
+                
+                maDAOUtilisateur.setObjetLocal(clientIntervention);
+                maDAOUtilisateur.mettreAJour();
+                finirTransactionEcriture();
+                return true;
+            }
+            catch(Exception e){
+                finirTransactionEcriture();
+                return false;
+            }
+        
+        }
+        
 
     }
     
