@@ -33,7 +33,7 @@ public class ServicesTest {
     public ServicesTest() {
     }
     
-    private static Client client1, client2, client3;
+    private static Client client1, client2, client3, client4;
     
     private static Employe employe1, employe2, employe3;
     
