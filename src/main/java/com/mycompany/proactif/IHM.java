@@ -102,7 +102,7 @@ public class IHM {
     
     public static void testClassAdresse()
     {
-        Adresse a1 = new Adresse(10, "Rue des pommes", "69100", "Villeurbanne", "Digicode 9029", "Lont: Lat:");
+        Adresse a1 = new Adresse(10, "Rue des pommes", "69100", "Villeurbanne", "Digicode 9029");
         System.out.println(a1.toString());
     }
     

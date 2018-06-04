@@ -5,6 +5,7 @@
  */
 package com.mycompany.proactif.services;
 
+import com.google.maps.model.LatLng;
 import com.mycompany.proactif.dao.DAOAbstraitUtilisateur;;
 import com.mycompany.proactif.dao.DAOIntervention;
 import com.mycompany.proactif.entites.Utilisateur;
@@ -16,6 +17,9 @@ import com.mycompany.proactif.entites.Employe;
 import com.mycompany.proactif.entites.Intervention;
 import com.mycompany.proactif.util.Comparateur;
 import com.mycompany.proactif.util.Comparateur.FILTRES;
+import com.mycompany.proactif.util.DebugLogger;
+import com.mycompany.proactif.util.GeoTest;
+import com.mycompany.proactif.util.Message;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,32 +31,56 @@ import java.util.List;
  */
 public class Services {
     
-    @Deprecated
-    public static boolean ajouterUtilisateur(Utilisateur utilisateur) {
-        
-        commencerTransactionEcriture();
-        
-        DAOUtilisateur maDAO = new DAOUtilisateur();
-        maDAO.creer(utilisateur);
-        
-        finirTransactionEcriture();
-        return true;
-    }
+    public enum RetourCreationUtilisateur {
+        LatLngIntrouvable,
+        ErreurBase,
+        Succes
+    };
     
     
     
     /**
      * Permet de créer un utilisateur de tout type
      * @param <T> Le type d'utilisateur à créer (Client, Employé)
-     * @param unUtilisateur L'utilisateur 
+     * @param unUtilisateur L'utilisateur
+     * @return Le résultat du traitement
      */
-    public static <T extends Utilisateur> void creerUtilisateur(T unUtilisateur) {
-        commencerTransactionEcriture();
+    public static <T extends Utilisateur> RetourCreationUtilisateur creerUtilisateur(T unUtilisateur) {
         
-        DAOAbstraitUtilisateur<T> maDAO = new DAOAbstraitUtilisateur<T>();
-        maDAO.creer(unUtilisateur);
+        RetourCreationUtilisateur codeRetour = RetourCreationUtilisateur.Succes;
+
+        // Vérif des coordonnées GPS
+        String adresse = unUtilisateur.getAdresse().toGeoString();
+        LatLng coordonneesGPS = GeoTest.getLatLng(adresse);
+
+        if (null == coordonneesGPS)
+            codeRetour = RetourCreationUtilisateur.LatLngIntrouvable;
+        else
+            unUtilisateur.getAdresse().setCoordonneesGPS(coordonneesGPS);
+     
+            
         
-        finirTransactionEcriture();
+        // Si tout ok alors créer utilisateur
+        if (codeRetour == RetourCreationUtilisateur.Succes) {
+           try {
+               commencerTransactionEcriture();
+               DAOAbstraitUtilisateur<T> maDAO = new DAOAbstraitUtilisateur();
+               maDAO.creer(unUtilisateur);
+
+               // Envoyer un mail
+               Message.envoyerMail("contact@proactif.fr", unUtilisateur.getEmail(), "[PROACTIF] Bienvenue sur proactif", "Message");
+               // TODO Message à rédiger
+           }
+           catch (Exception e) {
+               DebugLogger.log("[SERVICE] Création d'un utilisateur", e);
+               codeRetour = RetourCreationUtilisateur.ErreurBase;
+           }
+           finally {
+               finirTransactionEcriture();
+           }
+        }
+        
+        return codeRetour;
     }
     
     /**

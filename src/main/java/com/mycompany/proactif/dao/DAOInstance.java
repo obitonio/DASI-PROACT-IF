@@ -5,6 +5,7 @@
  */
 package com.mycompany.proactif.dao;
 
+import com.mycompany.proactif.util.DebugLogger;
 import java.util.List;
 import javax.persistence.Query;
 
@@ -45,8 +46,16 @@ public abstract class DAOInstance <T> {
         JpaUtil.obtenirEntityManager().remove(objetLocal);
     }
    
-    public void trouverParId(long id) {
-        objetLocal = JpaUtil.obtenirEntityManager().find((Class<T>) objetLocal.getClass(), id);
+    public boolean trouverParId(long id) {
+        try {
+            objetLocal = JpaUtil.obtenirEntityManager().find((Class<T>) objetLocal.getClass(), id);
+        }
+        catch (Exception e) {
+            DebugLogger.log("[DAOInstance] TrouverParId", e);
+            return false;
+        }
+        
+        return true;
     }
     
 
