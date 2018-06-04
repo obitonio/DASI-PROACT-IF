@@ -54,8 +54,6 @@ public class Adresse implements Serializable {
         this.codePostal = unCodePostal;
         this.ville = uneVille;
         this.informations = desInformations;
-        this.coordonneesGPS = GeoTest.getLatLng(numero + " " + rue + " " +
-                                        codePostal + " " + ville);
     }
 
     // ======================= Méthodes publiques

@@ -12,7 +12,6 @@ import com.mycompany.proactif.entites.Utilisateur;
 import com.mycompany.proactif.dao.DAOUtilisateur;
 import static com.mycompany.proactif.dao.DAOEmploye.getEmployeLePlusProche;
 import static com.mycompany.proactif.dao.DAOEmploye.getEmployesDisponibles;
-import com.mycompany.proactif.dao.DAOInstance;
 import com.mycompany.proactif.dao.JpaUtil;
 import com.mycompany.proactif.entites.Client;
 import com.mycompany.proactif.entites.Employe;
@@ -42,6 +41,12 @@ public class Services {
     
     public enum RetourCreationIntervention {
         AucunEmployeDisponible,
+        ErreurBase,
+        Succes
+    };
+    
+    public enum RetourTerminerIntervention {
+        InterventionNonReussie,
         ErreurBase,
         Succes
     };
@@ -137,7 +142,9 @@ public class Services {
      */
     public static RetourCreationIntervention creerDemandeIntervention(Intervention intervention) {
         
+        commencerTransactionLecture();
         Employe employeattribue = getEmployeLePlusProche(getEmployesDisponibles(), intervention);
+        finirTransactionLecture();
         Client clientIntervention = intervention.getClient();
         
         if(employeattribue == null){
@@ -173,6 +180,35 @@ public class Services {
         
 
     }
+    
+    public static RetourTerminerIntervention TerminerIntervention(Intervention intervention, String commentaire, int etat){
+        
+        intervention.setEtat(etat);
+        intervention.setCommentaireEmploye(commentaire);
+        intervention.setDateFin(new Date());
+        
+        Employe employe = intervention.getEmploye();
+        String adresseCLientIntervention = intervention.getClient().getAdresse().toGeoString();
+        employe.setPosition(GeoTest.getLatLng(adresseCLientIntervention));
+        
+        try{
+            commencerTransactionEcriture();
+            DAOIntervention maDAOIntervention = new DAOIntervention();
+            maDAOIntervention.setObjetLocal(intervention);
+            maDAOIntervention.mettreAJour();
+            
+            
+            
+            finirTransactionEcriture();
+            return RetourTerminerIntervention.Succes;
+            }
+            catch(Exception e){
+                finirTransactionEcriture();
+                return RetourTerminerIntervention.ErreurBase;
+            }
+    }
+    
+    
     
     private static void commencerTransactionEcriture() {
        JpaUtil.creerEntityManager();
