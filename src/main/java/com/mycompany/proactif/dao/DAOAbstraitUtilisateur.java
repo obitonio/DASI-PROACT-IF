@@ -6,6 +6,7 @@
 package com.mycompany.proactif.dao;
 
 import com.mycompany.proactif.entites.Utilisateur;
+import com.mycompany.proactif.util.DebugLogger;
 import javax.persistence.Query;
 
 /**
@@ -28,11 +29,14 @@ public class DAOAbstraitUtilisateur<T extends Utilisateur> extends DAOInstance<T
         Query requete = JpaUtil.obtenirEntityManager().createQuery(jpql);
         requete.setParameter("email", email);
         requete.setParameter("motDePasse", motDePasse);
-        try{
+        
+        try {
             objetLocal = (T) requete.getSingleResult();
+            trouverParId(objetLocal.getId());
         }
-        catch(Exception e){
+        catch(Exception e) {
             objetLocal = null;
+            DebugLogger.log("[DAOUtilisateurAbstrait] Authentifier", e);
             //TODO : améliorer la réponse de contenue si l'on voiq=t qu'il y a un match avec les adresses mails
             return false;
         }

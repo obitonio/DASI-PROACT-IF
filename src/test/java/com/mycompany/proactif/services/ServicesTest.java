@@ -5,11 +5,9 @@
  */
 package com.mycompany.proactif.services;
 
-import com.mycompany.proactif.dao.DAOEmploye;
 import com.mycompany.proactif.entites.Client;
 import com.mycompany.proactif.entites.Employe;
 import com.mycompany.proactif.entites.Intervention;
-import com.mycompany.proactif.entites.Utilisateur;
 import com.mycompany.proactif.util.Comparateur;
 import java.util.Date;
 import java.util.List;
@@ -31,9 +29,9 @@ public class ServicesTest {
     public ServicesTest() {
     }
     
-    private static Client client1, client2;
+    private static Client client1, client2, client3;
     
-    private static Employe employe1, employe2;
+    private static Employe employe1, employe2, employe3;
     
     @BeforeClass
     public static void setUpClass() {
@@ -44,16 +42,27 @@ public class ServicesTest {
         Adresse adresseFausse = new Adresse(90, "rue zzzzzzzzz", "69100", "Villedsfsdfl", "");
         Adresse adresseVrai2 = new Adresse(79, "Rue de bruxelles", "69100", "Villeurbanne", "");
         Adresse adresseFausse2 = new Adresse(9, "rue zzzzzzzzz", "69100", "Villedsfsdfl", "");
+        Adresse adrCli3 = new Adresse(45, "Rue de bruxelles", "69100", "Villeurbanne", "");
+        Adresse adrEmp3 = new Adresse(46, "Rue de bruxelles", "69100", "Villeurbanne", "");
         
         client1 = new Client("Antoine", "Mathat", new Date(), "0677500460", "amathat@insa-lyon.fr", "123456", new Date(), 6);
         client2 = new Client("George", "Ration", new Date(), "0467382904", "ration@yahoo.fr", "123456", new Date(), 6);
+        client3 = new Client("Pascal", "Lebon", new Date(), "0789340718", "pl@yahoo.fr", "123456", new Date(), 6);
+        
         client1.setAdresse(adresseVrai);
         client2.setAdresse(adresseFausse);
+        client3.setAdresse(adrCli3);
         
         employe1 = new Employe("Jean", "Neymar", new Date(), "0690239405", "jhameau@insa-lyon.fr", "1234567", "696965", 9,8);
         employe2 = new Employe("Théo", "Benzenma", new Date(), "0923849605", "tt@gmail.com", "1234567", "696965", 9,8); 
+        employe3 = new Employe("Léo", "Pomp", new Date(), "0678301074", "lp@gmail.com", "1234567", "696965", 9,8); 
+    
         employe1.setAdresse(adresseVrai2);
         employe2.setAdresse(adresseFausse2);
+        employe3.setAdresse(adrEmp3);
+        
+        Services.creerUtilisateur(client3);
+        Services.creerUtilisateur(employe3);
     }
     
     @AfterClass
@@ -66,6 +75,7 @@ public class ServicesTest {
     
     @After
     public void tearDown() {
+        
     }
 
     /**
@@ -89,14 +99,16 @@ public class ServicesTest {
     public void testAuthentifier() {
         System.out.println("authentifier");
         
-        Services.creerUtilisateur(client1);
-        Services.creerUtilisateur(employe1);
+        Client c = (Client) Services.authentifier(client3.getEmail(), client3.getMotDePasse());
+        Employe e = (Employe) Services.authentifier(employe3.getEmail(), employe3.getMotDePasse());
         
-        assertTrue(Services.authentifier(client1.getEmail(), client1.getMotDePasse()));
-        assertTrue(Services.authentifier(employe1.getEmail(), employe1.getMotDePasse()));
+        assertNull(Services.authentifier(client2.getEmail(), client2.getMotDePasse()));
+        assertNull(Services.authentifier(employe2.getEmail(), employe2.getMotDePasse()));
+        assertNotNull(c);
+        assertNotNull(e);
         
-        assertFalse(Services.authentifier(client2.getEmail(), client2.getMotDePasse()));
-        assertFalse(Services.authentifier(employe2.getEmail(), employe2.getMotDePasse()));
+        assertTrue(c.equals(client3));
+        assertTrue(e.equals(employe3));
     }
 
     /**

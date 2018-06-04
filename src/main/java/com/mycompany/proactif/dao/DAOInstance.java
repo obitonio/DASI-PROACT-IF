@@ -17,7 +17,7 @@ import javax.persistence.Query;
 public abstract class DAOInstance <T> {
     
    // ======================= Attributs
-    T objetLocal = null;
+    protected T objetLocal = null;
 
     
     // ======================= Contructeurs
