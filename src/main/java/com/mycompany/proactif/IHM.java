@@ -26,6 +26,15 @@ public class IHM {
      */
     public static void main(String[] args) throws ParseException {
         
+        // TODO 
+        /**
+         * Tout séparer dans des méthodes
+         * Faire un scenario employé (authentification + cloturer intervention)
+         * Faire un scenario client (authentification + créer intervention)
+         * Utiliser les méthodes de Saisie.java
+         */
+        
+        
         JpaUtil.init();
         
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -44,6 +53,7 @@ public class IHM {
         Services.creerUtilisateur(employe2);
         Services.creerUtilisateur(employe3);
         // ====
+      
            
         // Création du client 
         Client u1 = new Client("Antoine", "Mathat", format.parse("29/08/1997"), "0677500460", "amathat@insa-lyon.fr", "123456", format.parse("7/06/2018"), 6);
@@ -70,5 +80,20 @@ public class IHM {
         
         System.out.println("Création d'une intervention :");
         System.out.println(i1.toString());
+        Services.creerDemandeIntervention(u2, i1);
+        System.out.println("----> Intervention créée");
+ 
+    }
+    
+    private static void scenarioClient() {
+        
+    }
+    
+    private static void scenarioEmploye() {
+        
+    }
+    
+    private static void initialiserJeuEssai() {
+        
     }
 }

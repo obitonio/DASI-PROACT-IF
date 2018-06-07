@@ -191,7 +191,7 @@ public class Services {
         Employe employeattribue = getEmployeLePlusProche(getEmployesDisponibles(), intervention);
         finirTransactionLecture();
         
-        if(employeattribue == null){
+        if (employeattribue == null) {
             codeRetour = RetourCreationIntervention.AucunEmployeDisponible;
         }
         else {

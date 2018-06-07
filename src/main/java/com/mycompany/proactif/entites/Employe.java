@@ -6,6 +6,7 @@
 package com.mycompany.proactif.entites;
 
 import com.google.maps.model.LatLng;
+import com.mycompany.proactif.util.GeoTest;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -96,6 +97,12 @@ public class Employe extends Utilisateur implements Serializable {
     }
 
     // ======================= Surcharges
+    @Override
+    public void setAdresse(Adresse adresse) {
+        super.setAdresse(adresse);
+        this.setPosition(GeoTest.getLatLng(adresse.toGeoString()));
+    }
+    
     @Override
     public String toString() {
         String message = "========================= Employe\n";
