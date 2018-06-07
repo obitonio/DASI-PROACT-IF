@@ -261,8 +261,7 @@ public class ServicesTest {
         List<Intervention> listeAttendue = new ArrayList<>();
         listeAttendue.add(a1);
         listeAttendue.add(a3);
-           fail("À terminer");
-        // assertEquals()
+        assertEquals(listeAttendue,listeReduite);
     }
 
     /**
