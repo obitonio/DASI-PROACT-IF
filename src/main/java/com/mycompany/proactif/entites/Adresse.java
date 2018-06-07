@@ -6,7 +6,6 @@
 package com.mycompany.proactif.entites;
 
 import com.google.maps.model.LatLng;
-import com.mycompany.proactif.util.GeoTest;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;

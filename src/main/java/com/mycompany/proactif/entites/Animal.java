@@ -58,8 +58,8 @@ public class Animal extends Intervention implements Serializable {
     // ======================= Surcharges
     @Override
     public String toString() {
-        String message = super.toString() + "\n";
-        message += "Type : Animal \n";
+        String message = "========================= Intervention - Animal\n";
+        message += super.toString() + "\n";
         message += "Nom : " + this.getNom() + "\n";
         message += "Type : " + this.getType() + "\n";
         return message;

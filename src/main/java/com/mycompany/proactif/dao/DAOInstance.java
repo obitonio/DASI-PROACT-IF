@@ -58,7 +58,6 @@ public abstract class DAOInstance <T> {
         return true;
     }
     
-
     /**
      * /!\ L'attribut objetLocal doit être instancié
      * @return Une liste avec tous les objets

@@ -6,6 +6,7 @@
 package com.mycompany.proactif.entites;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -54,7 +55,7 @@ public abstract class Utilisateur implements Serializable {
     private Adresse adresse;
     
     // ======================= Constructeurs
-    public Utilisateur(String nom, String prenom, Date dateNaissance, String telephone, String email, String motDePasse) {
+    public Utilisateur(String prenom, String nom, Date dateNaissance, String telephone, String email, String motDePasse) {
         this.nom = nom;
         this.prenom = prenom;
         this.dateNaissance = dateNaissance;
@@ -87,6 +88,13 @@ public abstract class Utilisateur implements Serializable {
 
     public Date getDateNaissance() {
         return dateNaissance;
+    }
+    
+    public String getDateNaissanceFormate() {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        String DateToStr = format.format(this.dateNaissance);
+
+        return DateToStr;
     }
 
     public String getTelephone() {
@@ -168,7 +176,10 @@ public abstract class Utilisateur implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.proactif.Client[ id=" + id + " ]";
+        String message = this.getPrenom() + " " + this.getNom() + ", né le " + this.getDateNaissanceFormate() + "\n";
+        message += "Adresse :\n";
+        message += this.getAdresse().toString() + "\n";
+        return message;
     }
     
 }

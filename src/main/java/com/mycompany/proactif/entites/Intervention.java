@@ -172,20 +172,21 @@ public class Intervention implements Serializable {
 
     @Override
     public String toString() {
-        String contenuDeLIntervention = this.client.toString() + '\n';
+        String contenuDeLIntervention = "Client : " + this.client.getPrenom() + " " + client.getNom() + '\n';
         if(this.employe != null)
-            contenuDeLIntervention += this.employe.toString() + '\n';
+            contenuDeLIntervention += "Employe : " + this.employe.getPrenom() + " " + this.employe.getNom() + '\n';
             
-        contenuDeLIntervention += this.dateDebut.toString() + '\n';
+        if (this.dateDebut != null)
+            contenuDeLIntervention += this.dateDebut.toString() + '\n';
         
         if(this.dateFin != null)
-            contenuDeLIntervention +=this.dateFin.toString() + '\n';
+            contenuDeLIntervention += this.dateFin.toString() + '\n';
         
         contenuDeLIntervention += this.descriptionClient + '\n';
         
         if(this.commentaireEmploye != null)
             contenuDeLIntervention +=  this.commentaireEmploye + '\n';
-        contenuDeLIntervention += this.intitule + '\n' +
+        contenuDeLIntervention += this.intitule + "\nEtat : " +
                                 String.valueOf(this.etat);
         return contenuDeLIntervention;                
     }

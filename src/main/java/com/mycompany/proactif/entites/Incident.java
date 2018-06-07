@@ -47,7 +47,8 @@ public class Incident extends Intervention implements Serializable {
     // ======================= Surcharges
     @Override
     public String toString() {
-        String message = super.toString() + "\n";
+        String message = "========================= Intervention - Incident\n";
+        message += super.toString() + "\n";
         message += "Type : Incident \n";
         message += "Priorité : " + this.getPriorite() + "\n";
         return message;

@@ -98,7 +98,10 @@ public class Employe extends Utilisateur implements Serializable {
     // ======================= Surcharges
     @Override
     public String toString() {
-        return "com.mycompany.proactif.entites.Employe[ id=" + super.getId() + " ]";
+        String message = "========================= Employe\n";
+        message += super.toString();
+        message += "Contrat n°" + this.getNumContrat() + ", salaire : " + this.getSalaire() + "€, disponible : " + ((this.getDisponibilite() == 1)? "oui" : "non") + "\n";
+        return message;
     }
     
 }

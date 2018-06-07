@@ -87,8 +87,8 @@ public class Livraison extends Intervention implements Serializable {
     // ======================= Surcharges
     @Override
     public String toString() {
-        String message = super.toString() + "\n";
-        message += "Type : Livraison \n";
+        String message = "========================= Intervention - Livraison\n";
+        message += super.toString() + "\n";
         message += "Livreur : " + this.getLivreur() + "\n";
         message += "Heure passage : " + this.getHeurePassage() + "\n";
         message += "Code suivi : " + this.getCodeSuivi() + "\n";

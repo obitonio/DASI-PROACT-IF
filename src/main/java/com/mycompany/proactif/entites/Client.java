@@ -6,6 +6,7 @@
 package com.mycompany.proactif.entites;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -67,11 +68,21 @@ public class Client extends Utilisateur implements Serializable {
         return dateDebutAbonnement;
     }
     
+    public String getDateDebutAbonnementFormate() {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        String DateToStr = format.format(this.dateDebutAbonnement);
+
+        return DateToStr;
+    }
+    
     // ======================= Surcharges
     
     @Override
     public String toString() {
-        return "com.mycompany.proactif.entites.Client[ id=" + super.getId() + " ]";
+        String message = "========================= Client\n";
+        message += super.toString();
+        message += "Début abonnement : " + this.getDateDebutAbonnementFormate() + " pour une durée de " + this.getDuree() + " mois\n";
+        return message;
     }
     
 }

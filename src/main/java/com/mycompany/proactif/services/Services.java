@@ -85,6 +85,7 @@ public class Services {
            }
            catch (Exception e) {
                DebugLogger.log("[SERVICE] Création d'un utilisateur", e);
+               annulerTransaction();
                codeRetour = RetourCreationUtilisateur.ErreurBase;
            }
         }
@@ -111,6 +112,7 @@ public class Services {
         }
         catch (Exception e) {
             DebugLogger.log("[SERVICE] Mise à jour d'un utilisateur", e);
+            annulerTransaction();
             codeRetour = false;
         }
         
@@ -128,13 +130,18 @@ public class Services {
         Utilisateur utilisateur = null;
         DAOUtilisateur maDAO = new DAOUtilisateur();
         
-        commencerTransactionLecture();
-        
-        if (maDAO.authentifier(email, motDePasse)) {
-            utilisateur = maDAO.getObjetLocal();
+        try {
+            commencerTransactionLecture();
+
+            if (maDAO.authentifier(email, motDePasse)) {
+                utilisateur = maDAO.getObjetLocal();
+            }
+
+            finirTransactionLecture();
         }
-  
-        finirTransactionLecture();
+        catch (Exception e) {
+            DebugLogger.log("[SERVICES] authentifier", e);
+        }
         
         return utilisateur;
     }
@@ -211,8 +218,9 @@ public class Services {
                 finirTransactionEcriture();
             }
             catch(Exception e) {
-                DebugLogger.log("[Service] creerDemandeIntervention", e);
+                DebugLogger.log("[Services] creerDemandeIntervention", e);
                 codeRetour = RetourCreationIntervention.ErreurBase;
+                annulerTransaction();
             }
         }
         
@@ -228,7 +236,7 @@ public class Services {
      */
     public static RetourTerminerIntervention TerminerIntervention(Intervention intervention, String commentaire, int etat){
         
-        RetourTerminerIntervention codeRetour= RetourTerminerIntervention.ErreurBase;
+        RetourTerminerIntervention codeRetour = RetourTerminerIntervention.ErreurBase;
         
         intervention.setEtat(etat);
         intervention.setCommentaireEmploye(commentaire);
@@ -253,12 +261,13 @@ public class Services {
                 codeRetour = RetourTerminerIntervention.InterventionNonReussie;
             else
                 codeRetour = RetourTerminerIntervention.Succes;
-            }
-        catch(Exception e){
-            codeRetour = RetourTerminerIntervention.ErreurBase;
-        }
-        finally{
+        
             finirTransactionEcriture();
+        }   
+        catch(Exception e){
+            DebugLogger.log("[SERVICES] TerminerIntervention", e);
+            annulerTransaction();
+            codeRetour = RetourTerminerIntervention.ErreurBase;
         }
         
         return codeRetour;
@@ -272,6 +281,10 @@ public class Services {
     private static void finirTransactionEcriture() {
        JpaUtil.validerTransaction();
        JpaUtil.fermerEntityManager(); 
+    }
+    
+    private static void annulerTransaction() {
+        JpaUtil.annulerTransaction();
     }
     
     public static void finirTransactionLecture() {
