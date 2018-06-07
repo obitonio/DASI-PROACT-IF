@@ -51,9 +51,7 @@ public class Services {
         ErreurBase,
         Succes
     };
-    
-    
-    
+   
     /**
      * Permet de créer un utilisateur de tout type
      * @param <T> Le type d'utilisateur à créer (Client, Employé)
@@ -72,8 +70,6 @@ public class Services {
             codeRetour = RetourCreationUtilisateur.LatLngIntrouvable;
         else
             unUtilisateur.getAdresse().setCoordonneesGPS(coordonneesGPS);
-     
-            
         
         // Si tout ok alors créer utilisateur
         if (codeRetour == RetourCreationUtilisateur.Succes) {
@@ -85,14 +81,37 @@ public class Services {
                // Envoyer un mail
                Message.envoyerMail("contact@proactif.fr", unUtilisateur.getEmail(), "[PROACTIF] Bienvenue sur proactif", "Message");
                // TODO Message à rédiger
+               finirTransactionEcriture();
            }
            catch (Exception e) {
                DebugLogger.log("[SERVICE] Création d'un utilisateur", e);
                codeRetour = RetourCreationUtilisateur.ErreurBase;
            }
-           finally {
-               finirTransactionEcriture();
-           }
+        }
+        
+        return codeRetour;
+    }
+    
+    /**
+     * Permet de mettre à jour un utilisateur existant
+     * @param <T> Le type de l'utilisateur (Employe / Client)
+     * @param unUtilisateur L'utilisateur à mettre à jour
+     * @return true en cas de succès sinon false
+     */
+    public static <T extends Utilisateur> boolean mettreAJourUtilisateur(T unUtilisateur){
+        boolean codeRetour = true;  
+        
+        try {
+            commencerTransactionEcriture();
+            
+            DAOAbstraitUtilisateur<T> maDAO = new DAOAbstraitUtilisateur(unUtilisateur);
+            maDAO.mettreAJour();
+            
+            finirTransactionEcriture();
+        }
+        catch (Exception e) {
+            DebugLogger.log("[SERVICE] Mise à jour d'un utilisateur", e);
+            codeRetour = false;
         }
         
         return codeRetour;
@@ -119,12 +138,27 @@ public class Services {
         
         return utilisateur;
     }
+    
+    /**
+     * Permet de trier une liste d'intervention en fonction des critères fournies
+     * @param listeInterventions la liste à filtrer
+     * @param monFiltre le type de filtre
+     * @param croissant true pour croissant, false pour décroissant
+     * @return 
+     */
     public static boolean trierListe(List<Intervention> listeInterventions,FILTRES monFiltre, boolean croissant){
         
         Comparateur monComparateur = new Comparateur (monFiltre, croissant);
         Collections.sort(listeInterventions, monComparateur);
         return true;
     }
+    
+    /**
+     * Permet de chercher une intervention
+     * @param listeIntervention La liste soumise à la recherceh
+     * @param motClef Les mots clés de recherche
+     * @return Les interventions répondants aux critères
+     */
     public static List<Intervention> rechercher(List<Intervention> listeIntervention, String motClef){
         
         List<Intervention> maNouvelleListe = new ArrayList<>();
@@ -185,20 +219,13 @@ public class Services {
         return codeRetour;
     }
     
-    public static void mettreAJourUtilisateur(Utilisateur utilisateur, String nom, String prenom, Date dateNaissance, String telephone, String email, String motDePasse, Adresse adresse){
-        
-        utilisateur.setAdresse(adresse);
-        utilisateur.setNom(nom);
-        utilisateur.setPrenom(prenom);
-        utilisateur.setEmail(email);
-        utilisateur.setMotDePasse(motDePasse);
-        utilisateur.setTelephone(telephone);
-        utilisateur.setDateNaissance(dateNaissance);
-        
-        
-        
-    }
-    
+    /**
+     * Permet de cloturer une intervention en cours
+     * @param intervention L'intervention à terminer
+     * @param commentaire Le commentaire 
+     * @param etat L'état de fin d'intervention
+     * @return Si le traitement s'est terminé correctement
+     */
     public static RetourTerminerIntervention TerminerIntervention(Intervention intervention, String commentaire, int etat){
         
         RetourTerminerIntervention codeRetour= RetourTerminerIntervention.ErreurBase;
@@ -212,7 +239,7 @@ public class Services {
         employe.setPosition(GeoTest.getLatLng(adresseCLientIntervention));
         employe.setDisponibilite(1);
         
-        try{
+        try {
             commencerTransactionEcriture();
             DAOIntervention maDAOIntervention = new DAOIntervention();
             maDAOIntervention.setObjetLocal(intervention);
@@ -227,16 +254,15 @@ public class Services {
             else
                 codeRetour = RetourTerminerIntervention.Succes;
             }
-            catch(Exception e){
-                codeRetour = RetourTerminerIntervention.ErreurBase;
-            }
-            finally{
-                finirTransactionEcriture();
-            }
+        catch(Exception e){
+            codeRetour = RetourTerminerIntervention.ErreurBase;
+        }
+        finally{
+            finirTransactionEcriture();
+        }
+        
         return codeRetour;
     }
-    
-    
     
     private static void commencerTransactionEcriture() {
        JpaUtil.creerEntityManager();
@@ -248,11 +274,11 @@ public class Services {
        JpaUtil.fermerEntityManager(); 
     }
     
-    private static void finirTransactionLecture() {
+    public static void finirTransactionLecture() {
        JpaUtil.fermerEntityManager(); 
     }
     
-    private static void commencerTransactionLecture() {
+    public static void commencerTransactionLecture() {
        JpaUtil.creerEntityManager(); 
     }
 }

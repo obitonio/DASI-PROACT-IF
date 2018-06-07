@@ -16,6 +16,14 @@ import javax.persistence.Query;
  */
 public class DAOAbstraitUtilisateur<T extends Utilisateur> extends DAOInstance<T> {
     
+    public DAOAbstraitUtilisateur() {
+        
+    }
+    
+    public DAOAbstraitUtilisateur(T unUtilisateur) {
+        super(unUtilisateur);
+    }
+    
     @Override 
     public void creer (T object) {
         JpaUtil.obtenirEntityManager().persist(object.getAdresse());

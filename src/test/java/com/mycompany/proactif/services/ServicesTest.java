@@ -5,6 +5,7 @@
  */
 package com.mycompany.proactif.services;
 
+import com.mycompany.proactif.dao.DAOAbstraitUtilisateur;
 import com.mycompany.proactif.entites.Client;
 import com.mycompany.proactif.entites.Employe;
 import com.mycompany.proactif.entites.Intervention;
@@ -22,6 +23,7 @@ import com.mycompany.proactif.entites.Adresse;
 import com.mycompany.proactif.entites.Animal;
 import com.mycompany.proactif.entites.Incident;
 import com.mycompany.proactif.entites.Livraison;
+import com.mycompany.proactif.util.DebugLogger;
 import com.mycompany.proactif.util.GeoTest;
 import java.util.ArrayList;
 
@@ -133,6 +135,33 @@ public class ServicesTest {
         assertEquals(Services.RetourCreationUtilisateur.Succes, Services.creerUtilisateur(employe1));
         assertEquals(Services.RetourCreationUtilisateur.LatLngIntrouvable, Services.creerUtilisateur(employe2));  
     }
+    
+    @Test
+    public void testMettreAJourUtilisateur() {
+        System.out.println("mettreAJourUtilisateur");
+        
+        Client c = (Client) Services.authentifier(client4.getEmail(), client4.getMotDePasse());
+        Client c2 = new Client();
+        
+        c.setNom("Test");
+        c.setPrenom("Test");
+        
+        assertTrue(Services.mettreAJourUtilisateur(c));
+        
+        try {
+            Services.commencerTransactionLecture();
+            DAOAbstraitUtilisateur<Client> maDAO = new DAOAbstraitUtilisateur<>(c2);
+            maDAO.trouverParId(c.getId());
+            c2 = maDAO.getObjetLocal();
+            Services.finirTransactionLecture();
+        }
+        catch (Exception e) {
+            DebugLogger.log("[TEST-SERVICES] testMettreAJourUtilisateur", e);
+            fail ("Echec lors de la vérification");
+        }
+        
+        assertTrue(c.equals(c2));   
+    }
 
     /**
      * Test of authentifier method, of class Services.
@@ -232,8 +261,8 @@ public class ServicesTest {
         List<Intervention> listeAttendue = new ArrayList<>();
         listeAttendue.add(a1);
         listeAttendue.add(a3);
-        
-        assertEquals()
+           fail("À terminer");
+        // assertEquals()
     }
 
     /**
@@ -249,4 +278,20 @@ public class ServicesTest {
         assertEquals(Services.RetourCreationIntervention.Succes, Services.creerDemandeIntervention(c1, a3));
         assertEquals(Services.RetourCreationIntervention.AucunEmployeDisponible, Services.creerDemandeIntervention(c1, l1));
     }   
+    
+    @Test
+    public void TestTerminerIntervention(){
+        System.out.println("terminerIntervention");
+        
+        Client c1 = (Client) Services.authentifier(client3.getEmail(), client3.getMotDePasse());           
+        
+        // Création des interventions
+        assertEquals(Services.RetourCreationIntervention.Succes, Services.creerDemandeIntervention(c1, i2));
+        assertEquals(Services.RetourCreationIntervention.Succes, Services.creerDemandeIntervention(c1, i3));
+      
+        // Cloture des interventions
+        assertEquals(Services.RetourTerminerIntervention.Succes, Services.TerminerIntervention(i2, "Les toilettes sont oppérationnels", 0));
+        assertEquals(Services.RetourTerminerIntervention.InterventionNonReussie, Services.TerminerIntervention(i3, "La gouttière est cassée un professionnel doit intervenir", -1));
+
+    }
 }
