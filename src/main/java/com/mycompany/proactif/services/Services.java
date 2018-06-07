@@ -13,6 +13,7 @@ import com.mycompany.proactif.dao.DAOUtilisateur;
 import static com.mycompany.proactif.dao.DAOEmploye.getEmployeLePlusProche;
 import static com.mycompany.proactif.dao.DAOEmploye.getEmployesDisponibles;
 import com.mycompany.proactif.dao.JpaUtil;
+import com.mycompany.proactif.entites.Adresse;
 import com.mycompany.proactif.entites.Client;
 import com.mycompany.proactif.entites.Employe;
 import com.mycompany.proactif.entites.Intervention;
@@ -182,6 +183,20 @@ public class Services {
         }
         
         return codeRetour;
+    }
+    
+    public static void mettreAJourUtilisateur(Utilisateur utilisateur, String nom, String prenom, Date dateNaissance, String telephone, String email, String motDePasse, Adresse adresse){
+        
+        utilisateur.setAdresse(adresse);
+        utilisateur.setNom(nom);
+        utilisateur.setPrenom(prenom);
+        utilisateur.setEmail(email);
+        utilisateur.setMotDePasse(motDePasse);
+        utilisateur.setTelephone(telephone);
+        utilisateur.setDateNaissance(dateNaissance);
+        
+        
+        
     }
     
     public static RetourTerminerIntervention TerminerIntervention(Intervention intervention, String commentaire, int etat){
