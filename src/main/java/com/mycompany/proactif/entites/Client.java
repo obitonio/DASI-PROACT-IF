@@ -22,6 +22,7 @@ public class Client extends Utilisateur implements Serializable {
     // ======================= Attributs
     private static final long serialVersionUID = 1L;
     
+    
     @OneToMany(mappedBy = "client")
     private List<Intervention> listeDesInterventions;
     

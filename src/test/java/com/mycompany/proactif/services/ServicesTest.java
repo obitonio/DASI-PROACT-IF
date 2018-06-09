@@ -130,10 +130,10 @@ public class ServicesTest {
         System.out.println("creerUtilisateur");
    
         // Création des utilisateurs dans la base
-        assertEquals(Services.RetourCreationUtilisateur.Succes, Services.creerUtilisateur(client1));
-        assertEquals(Services.RetourCreationUtilisateur.LatLngIntrouvable, Services.creerUtilisateur(client2));
-        assertEquals(Services.RetourCreationUtilisateur.Succes, Services.creerUtilisateur(employe1));
-        assertEquals(Services.RetourCreationUtilisateur.LatLngIntrouvable, Services.creerUtilisateur(employe2));  
+        assertEquals(client1, Services.creerUtilisateur(client1));
+        assertEquals(null, Services.creerUtilisateur(client2));
+        assertEquals(employe1, Services.creerUtilisateur(employe1));
+        assertEquals(null, Services.creerUtilisateur(employe2));
     }
     
     @Test

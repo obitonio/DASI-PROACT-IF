@@ -57,39 +57,38 @@ public class Services {
      * @param unUtilisateur L'utilisateur
      * @return Le résultat du traitement
      */
-    public static <T extends Utilisateur> RetourCreationUtilisateur creerUtilisateur(T unUtilisateur) {
+    public static Utilisateur creerUtilisateur(Utilisateur unUtilisateur) {
         
-        RetourCreationUtilisateur codeRetour = RetourCreationUtilisateur.Succes;
+        Utilisateur utilisateurCree;
 
         // Vérif des coordonnées GPS
         String adresse = unUtilisateur.getAdresse().toGeoString();
         LatLng coordonneesGPS = GeoTest.getLatLng(adresse);
-
-        if (null == coordonneesGPS)
-            codeRetour = RetourCreationUtilisateur.LatLngIntrouvable;
-        else
+        if(coordonneesGPS ==  null)
+            utilisateurCree = null;
+        else{
             unUtilisateur.getAdresse().setCoordonneesGPS(coordonneesGPS);
         
-        // Si tout ok alors créer utilisateur
-        if (codeRetour == RetourCreationUtilisateur.Succes) {
-           try {
-               commencerTransactionEcriture();
-               DAOAbstraitUtilisateur<T> maDAO = new DAOAbstraitUtilisateur();
-               maDAO.creer(unUtilisateur);
+            // Si tout ok alors créer utilisateur
+            try {
+                commencerTransactionEcriture();
+                DAOAbstraitUtilisateur<Utilisateur> maDAO = new DAOAbstraitUtilisateur();
+                maDAO.creer(unUtilisateur);
+                utilisateurCree = maDAO.trouverParId(unUtilisateur.getId());
 
-               // Envoyer un mail
-               Message.envoyerMail("contact@proactif.fr", unUtilisateur.getEmail(), "[PROACTIF] Bienvenue sur proactif", "Message");
-               // TODO Message à rédiger
-               finirTransactionEcriture();
-           }
-           catch (Exception e) {
-               DebugLogger.log("[SERVICE] Création d'un utilisateur", e);
-               annulerTransaction();
-               codeRetour = RetourCreationUtilisateur.ErreurBase;
-           }
+                // Envoyer un mail
+                Message.envoyerMail("contact@proactif.fr", unUtilisateur.getEmail(), "[PROACTIF] Bienvenue sur proactif", "Message");
+                // TODO Message à rédiger
+                finirTransactionEcriture();
+                return utilisateurCree;
+            }
+            catch (Exception e) {
+                DebugLogger.log("[SERVICE] Création d'un utilisateur", e);
+                annulerTransaction();
+                utilisateurCree = null;
+            }
         }
-        
-        return codeRetour;
+        return utilisateurCree;
     }
     
     /**

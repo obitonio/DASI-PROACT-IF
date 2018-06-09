@@ -46,16 +46,16 @@ public abstract class DAOInstance <T> {
         JpaUtil.obtenirEntityManager().remove(objetLocal);
     }
    
-    public boolean trouverParId(long id) {
+    public T trouverParId(long id) {
         try {
             objetLocal = JpaUtil.obtenirEntityManager().find((Class<T>) objetLocal.getClass(), id);
         }
         catch (Exception e) {
             DebugLogger.log("[DAOInstance] TrouverParId", e);
-            return false;
+            return null;
         }
         
-        return true;
+        return objetLocal;
     }
     
     /**
