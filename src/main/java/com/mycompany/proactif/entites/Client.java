@@ -6,14 +6,11 @@
 package com.mycompany.proactif.entites;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
 
 /**
  *
@@ -25,21 +22,12 @@ public class Client extends Utilisateur implements Serializable {
     // ======================= Attributs
     private static final long serialVersionUID = 1L;
     
-    @Column(nullable=false)
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dateDebutAbonnement;
-    
-    @Column(nullable=false)
-    private int duree;
-    
     @OneToMany(mappedBy = "client")
     private List<Intervention> listeDesInterventions;
     
     // ======================= Contructeurs
-    public Client(String nom, String prenom, Date dateNaissance, String telephone, String email, String motDePasse,Date dateDebutAbonnement, int duree) {
+    public Client(String prenom, String nom, Date dateNaissance, String telephone, String email, String motDePasse) {
         super(nom, prenom, dateNaissance, telephone, email, motDePasse);
-        this.dateDebutAbonnement = dateDebutAbonnement;
-        this.duree = duree;
         this.listeDesInterventions = new ArrayList<>();
     }
     public Client(){}
@@ -51,29 +39,7 @@ public class Client extends Utilisateur implements Serializable {
     public List<Intervention> getListeDesInterventions() {
         return listeDesInterventions;
     }
-    
-    public void setDateDebutAbonnement(Date dateDebutAbonnement) {
-        this.dateDebutAbonnement = dateDebutAbonnement;
-    }
 
-    public int getDuree() {
-        return duree;
-    }
-
-    public void setDuree(int duree) {
-        this.duree = duree;
-    }
-    
-    public Date getDateDebutAbonnement() {
-        return dateDebutAbonnement;
-    }
-    
-    public String getDateDebutAbonnementFormate() {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        String DateToStr = format.format(this.dateDebutAbonnement);
-
-        return DateToStr;
-    }
     
     // ======================= Surcharges
     
@@ -81,7 +47,6 @@ public class Client extends Utilisateur implements Serializable {
     public String toString() {
         String message = "========================= Client\n";
         message += super.toString();
-        message += "Début abonnement : " + this.getDateDebutAbonnementFormate() + " pour une durée de " + this.getDuree() + " mois\n";
         return message;
     }
     

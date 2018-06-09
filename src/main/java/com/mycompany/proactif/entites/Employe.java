@@ -26,12 +26,7 @@ public class Employe extends Utilisateur implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Column(nullable=false)
-    private String numContrat;
-    @Column(nullable=false)
-    private int salaire;
-    
-    @Column(nullable=false)
-    private int disponibilite; // 0 = indisponible, 1 = disponuble;
+    private boolean disponibilite; // 0 = indisponible, 1 = disponuble;
     
     @OneToMany(mappedBy = "employe")
     private List<Intervention> listeDesInterventions;
@@ -41,10 +36,8 @@ public class Employe extends Utilisateur implements Serializable {
     
 
     // ======================= Constructeurs
-    public Employe(String nom, String prenom, Date dateNaissance, String telephone, String email, String motDePasse, String numContrat, int salaire, int disponibilite) {
+    public Employe(String prenom, String nom, Date dateNaissance, String telephone, String email, String motDePasse, boolean disponibilite) {
         super(nom, prenom, dateNaissance, telephone, email, motDePasse);
-        this.numContrat = numContrat;
-        this.salaire = salaire;
         this.disponibilite = disponibilite;
         this.listeDesInterventions = new ArrayList<>();
     }
@@ -61,30 +54,13 @@ public class Employe extends Utilisateur implements Serializable {
 
     public void setPosition(LatLng position) {
         this.position = position;
-    }
-    
-    
-    public void setNumContrat(String numContrat) {
-        this.numContrat = numContrat;
-    }
+    }   
 
-    public void setSalaire(int salaire) {
-        this.salaire = salaire;
-    }
-
-    public void setDisponibilite(int disponibilite) {
+    public void setDisponibilite(boolean disponibilite) {
         this.disponibilite = disponibilite;
     }
-
-    public String getNumContrat() {
-        return numContrat;
-    }
-
-    public int getSalaire() {
-        return salaire;
-    }
-
-    public int getDisponibilite() {
+    
+    public boolean getDisponibilite() {
         return disponibilite;
     }
 
@@ -107,7 +83,6 @@ public class Employe extends Utilisateur implements Serializable {
     public String toString() {
         String message = "========================= Employe\n";
         message += super.toString();
-        message += "Contrat n°" + this.getNumContrat() + ", salaire : " + this.getSalaire() + "€, disponible : " + ((this.getDisponibilite() == 1)? "oui" : "non") + "\n";
         return message;
     }
     

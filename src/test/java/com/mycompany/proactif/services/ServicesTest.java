@@ -62,21 +62,21 @@ public class ServicesTest {
         Adresse adrEmp4 = new Adresse(49, "Rue de bruxelles", "69100", "Villeurbanne", "");
         Adresse adrEmp5 = new Adresse(50, "Rue de bruxelles", "69100", "Villeurbanne", "");
         
-        client1 = new Client("Antoine", "Mathat", new Date(), "0677500460", "amathat@insa-lyon.fr", "123456", new Date(), 6);
-        client2 = new Client("George", "Ration", new Date(), "0467382904", "ration@yahoo.fr", "123456", new Date(), 6);
-        client3 = new Client("Pierre", "Kiroule", new Date(), "0467382904", "pierre@yahoo.fr", "123456", new Date(), 6);
-        client4 = new Client("Pascal", "Lebon", new Date(), "0789340718", "pl@yahoo.fr", "123456", new Date(), 6);
+        client1 = new Client("Antoine", "Mathat", new Date(), "0677500460", "amathat@insa-lyon.fr", "123456");
+        client2 = new Client("George", "Ration", new Date(), "0467382904", "ration@yahoo.fr", "123456");
+        client3 = new Client("Pierre", "Kiroule", new Date(), "0467382904", "pierre@yahoo.fr", "123456");
+        client4 = new Client("Pascal", "Lebon", new Date(), "0789340718", "pl@yahoo.fr", "123456");
         
         client1.setAdresse(adresseVrai);
         client2.setAdresse(adresseFausse);
         client3.setAdresse(adrCli3);
         client4.setAdresse(adrCli4);
        
-        employe1 = new Employe("Jean", "Neymar", new Date(), "0690239405", "jhameau@insa-lyon.fr", "1234567", "696965", 9,8);
-        employe2 = new Employe("Théo", "Benzenma", new Date(), "0923849605", "tt@gmail.com", "1234567", "696965", 9,8); 
-        employe3 = new Employe("Léo", "Pomp", new Date(), "0678301074", "lp@gmail.com", "1234567", "696965", 9,1); 
-        employe4 = new Employe("Nabil", "Pondu", new Date(), "0678903478", "nabildupond@gmail.com", "1234567", "696965", 9,1); 
-        employe5 = new Employe("Corentin", "Violet", new Date(), "0798234905", "cocovivi@outlock.com", "1234567", "696965", 9,0); 
+        employe1 = new Employe("Jean", "Neymar", new Date(), "0690239405", "jhameau@insa-lyon.fr", "1234567", true);
+        employe2 = new Employe("Théo", "Benzema", new Date(), "0923849605", "tt@gmail.com", "1234567", true); 
+        employe3 = new Employe("Léo", "Pomp", new Date(), "0678301074", "lp@gmail.com", "1234567", true); 
+        employe4 = new Employe("Nabil", "Pondu", new Date(), "0678903478", "nabildupond@gmail.com", "1234567", true); 
+        employe5 = new Employe("Corentin", "Violet", new Date(), "0798234905", "cocovivi@outlock.com", "1234567", false); 
         
         
         employe1.setAdresse(adresseVrai2);
@@ -95,17 +95,17 @@ public class ServicesTest {
         Services.creerUtilisateur(employe4);
         Services.creerUtilisateur(employe5);
         
-        i1 = new Incident(client3, "Fuite eau", "De l'eau coule derrière le robinet de la cuisine", "URGENT");
-        i2 = new Incident(client3, "Toilettes bouchées", "Mes toilettes sont bouchées", "À TRAITER");
-        i3 = new Incident(client4, "Problème avec ma gouttière", "Les feuilles ont bouchés ma gouttière", "URGENT");
+        i1 = new Incident(client3, "Fuite eau", "De l'eau coule derrière le robinet de la cuisine");
+        i2 = new Incident(client3, "Toilettes bouchées", "Mes toilettes sont bouchées");
+        i3 = new Incident(client4, "Problème avec ma gouttière", "Les feuilles ont bouchés ma gouttière");
 
         a1 = new Animal(client3, "Nourir mon chat", "Les croquettes sont dans le placard d ela cuisine", "Tigrou", "CHAT");
         a2 = new Animal(client3, "Sortir mon chien", "La laisse est sur le porte manteau", "Théo", "CHIEN");
         a3 = new Animal(client4, "Nourir mon serpent", "Attention à pas vous faire mordre", "Rex", "Serpent");
 
-        l1 = new Livraison(client3, "Livraison G", "Le livreur passe à 18h30", "Jean", "01/06/2018 - 18:30", "093KS38U375");
-        l2 = new Livraison(client4, "Livraison H", "Le livreur passe à 11h30","Faissal", "04/06/2018 - 11:30", "093KS38U374");
-        l3 = new Livraison(client4, "Livraison I", "Le livreur passe à 17h00", "Arthur", "12/06/2018 - 17:00", "093KS38U373");
+        l1 = new Livraison(client3, "Livraison G", "Le livreur passe à 18h30", "01/06/2018 - 18:30", "093KS38U375", "Colis", "DHL");
+        l2 = new Livraison(client4, "Livraison H", "Le livreur passe à 11h30", "04/06/2018 - 11:30", "093KS38U374", "Recommandé", "La Poste");
+        l3 = new Livraison(client4, "Livraison I", "Le livreur passe à 17h00", "12/06/2018 - 17:00", "093KS38U373", "Lettre", "Colissimo");
     
     }
     
@@ -275,6 +275,7 @@ public class ServicesTest {
         
         assertEquals(Services.RetourCreationIntervention.Succes, Services.creerDemandeIntervention(c1, i1));
         assertEquals(Services.RetourCreationIntervention.Succes, Services.creerDemandeIntervention(c1, a3));
+        assertEquals(Services.RetourCreationIntervention.Succes, Services.creerDemandeIntervention(c1, a2));
         assertEquals(Services.RetourCreationIntervention.AucunEmployeDisponible, Services.creerDemandeIntervention(c1, l1));
     }   
     

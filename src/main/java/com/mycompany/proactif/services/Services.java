@@ -13,7 +13,6 @@ import com.mycompany.proactif.dao.DAOUtilisateur;
 import static com.mycompany.proactif.dao.DAOEmploye.getEmployeLePlusProche;
 import static com.mycompany.proactif.dao.DAOEmploye.getEmployesDisponibles;
 import com.mycompany.proactif.dao.JpaUtil;
-import com.mycompany.proactif.entites.Adresse;
 import com.mycompany.proactif.entites.Client;
 import com.mycompany.proactif.entites.Employe;
 import com.mycompany.proactif.entites.Intervention;
@@ -198,7 +197,7 @@ public class Services {
             
             intervention.setEmploye(employeattribue);
             intervention.setDateDebut(new Date());
-            employeattribue.setDisponibilite(0);
+            employeattribue.setDisponibilite(false);
             employeattribue.getListeDesInterventions().add(intervention);
             client.getListeDesInterventions().add(intervention);
             
@@ -245,7 +244,7 @@ public class Services {
         Employe employe = intervention.getEmploye();
         String adresseCLientIntervention = intervention.getClient().getAdresse().toGeoString();
         employe.setPosition(GeoTest.getLatLng(adresseCLientIntervention));
-        employe.setDisponibilite(1);
+        employe.setDisponibilite(true);
         
         try {
             commencerTransactionEcriture();

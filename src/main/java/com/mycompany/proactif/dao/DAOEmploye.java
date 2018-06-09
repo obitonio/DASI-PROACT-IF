@@ -20,7 +20,7 @@ public class DAOEmploye extends DAOAbstraitUtilisateur<Employe> {
     
     public static List<Employe> getEmployesDisponibles(){
         try{
-            String jpql = "SELECT e FROM Employe E WHERE e.disponibilite = 1";
+            String jpql = "SELECT e FROM Employe E WHERE e.disponibilite = TRUE";
             Query query = JpaUtil.obtenirEntityManager().createQuery(jpql);
             List<Employe> listeEmployesDisponibles = (List<Employe>) query.getResultList();
             return listeEmployesDisponibles;

@@ -24,8 +24,6 @@ public class Livraison extends Intervention implements Serializable {
     // ======================= Attributs
     private static final long serialVersionUID = 1L;
     
-    @Column(nullable=false)
-    private String livreur;
     
     @Column(nullable=false)
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -33,15 +31,22 @@ public class Livraison extends Intervention implements Serializable {
     
     @Column(nullable=false)
     private String codeSuivi;
+    
+    @Column(nullable=false)
+    private String Entreprise;
+    
+    @Column(nullable=false)
+    private String Type;
 
     // ======================= Constructeurs
     public Livraison() {}
     
-    public Livraison(Client client, String intitule, String descriptionClient, String unLivreur, String uneHeurePassage, String unCodeSuivi) {
+    public Livraison(Client client, String intitule, String descriptionClient, String uneHeurePassage, String unCodeSuivi, String unType, String uneEntreprise) {
         super(client, intitule, descriptionClient);
-        this.livreur = unLivreur;
         this.setHeurePassage(uneHeurePassage);
         this.codeSuivi = unCodeSuivi;
+        this.Entreprise = uneEntreprise;
+        this.Type = unType;
     }
 
     public Livraison(String récupérer_colis, Timestamp timestamp, String u374) {
@@ -51,14 +56,6 @@ public class Livraison extends Intervention implements Serializable {
     // ======================= Méthodes publiques
     
     // ======================= Getters / Setters
-    public String getLivreur() {
-        return livreur;
-    }
-
-    public void setLivreur(String livreur) {
-        this.livreur = livreur;
-    }
-
     public Date getHeurePassage() {
         return heurePassage;
     }
@@ -83,15 +80,37 @@ public class Livraison extends Intervention implements Serializable {
     public void setCodeSuivi(String codeSuivi) {
         this.codeSuivi = codeSuivi;
     }
+
+    public String getEntreprise() {
+        return Entreprise;
+    }
+
+    public String getType() {
+        return Type;
+    }
+
+    public void setHeurePassage(Date heurePassage) {
+        this.heurePassage = heurePassage;
+    }
+
+    public void setEntreprise(String Entreprise) {
+        this.Entreprise = Entreprise;
+    }
+
+    public void setType(String Type) {
+        this.Type = Type;
+    }
+    
     
     // ======================= Surcharges
     @Override
     public String toString() {
         String message = "========================= Intervention - Livraison\n";
         message += super.toString() + "\n";
-        message += "Livreur : " + this.getLivreur() + "\n";
         message += "Heure passage : " + this.getHeurePassage() + "\n";
         message += "Code suivi : " + this.getCodeSuivi() + "\n";
+        message += "Entreprise : " + this.getEntreprise();
+        message += "Type : " + this.getType() + "\n";
         return message;
     }
     
