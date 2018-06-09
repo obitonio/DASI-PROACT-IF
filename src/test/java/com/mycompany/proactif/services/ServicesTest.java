@@ -146,7 +146,7 @@ public class ServicesTest {
         c.setNom("Test");
         c.setPrenom("Test");
         
-        assertTrue(Services.mettreAJourUtilisateur(c));
+        assertEquals(Services.mettreAJourUtilisateur(c),c);
         
         try {
             Services.commencerTransactionLecture();

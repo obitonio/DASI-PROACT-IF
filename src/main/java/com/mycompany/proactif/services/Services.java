@@ -98,24 +98,23 @@ public class Services {
      * @param unUtilisateur L'utilisateur à mettre à jour
      * @return true en cas de succès sinon false
      */
-    public static <T extends Utilisateur> boolean mettreAJourUtilisateur(T unUtilisateur){
-        boolean codeRetour = true;  
-        
+    public static  Utilisateur mettreAJourUtilisateur(Utilisateur unUtilisateur){
+        Utilisateur utilisateurMisAjour;
         try {
             commencerTransactionEcriture();
             
-            DAOAbstraitUtilisateur<T> maDAO = new DAOAbstraitUtilisateur(unUtilisateur);
-            maDAO.mettreAJour();
+            DAOAbstraitUtilisateur<Utilisateur> maDAO = new DAOAbstraitUtilisateur(unUtilisateur);
+            utilisateurMisAjour = maDAO.mettreAJour();
             
             finirTransactionEcriture();
         }
         catch (Exception e) {
             DebugLogger.log("[SERVICE] Mise à jour d'un utilisateur", e);
             annulerTransaction();
-            codeRetour = false;
+            utilisateurMisAjour = null;
         }
         
-        return codeRetour;
+        return utilisateurMisAjour;
     }
     
     /**
@@ -140,6 +139,7 @@ public class Services {
         }
         catch (Exception e) {
             DebugLogger.log("[SERVICES] authentifier", e);
+            utilisateur = null;
         }
         
         return utilisateur;

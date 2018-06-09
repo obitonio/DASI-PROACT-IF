@@ -48,7 +48,6 @@ public class DAOEmploye extends DAOAbstraitUtilisateur<Employe> {
             }
             return employeLePlusProche;
         }
-    }
-    
+    } 
     
 }

@@ -38,8 +38,8 @@ public abstract class DAOInstance <T> {
         this.objetLocal = object;
     }
     
-    public void mettreAJour() {
-        JpaUtil.obtenirEntityManager().merge(objetLocal);
+    public T  mettreAJour() {
+        return JpaUtil.obtenirEntityManager().merge(objetLocal);
     }
     
     public void supprimer () {
