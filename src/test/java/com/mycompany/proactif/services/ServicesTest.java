@@ -62,21 +62,21 @@ public class ServicesTest {
         Adresse adrEmp4 = new Adresse(49, "Rue de bruxelles", "69100", "Villeurbanne", "");
         Adresse adrEmp5 = new Adresse(50, "Rue de bruxelles", "69100", "Villeurbanne", "");
         
-        client1 = new Client("Antoine", "Mathat", new Date(), "0677500460", "amathat@insa-lyon.fr", "123456");
-        client2 = new Client("George", "Ration", new Date(), "0467382904", "ration@yahoo.fr", "123456");
-        client3 = new Client("Pierre", "Kiroule", new Date(), "0467382904", "pierre@yahoo.fr", "123456");
-        client4 = new Client("Pascal", "Lebon", new Date(), "0789340718", "pl@yahoo.fr", "123456");
+        client1 = new Client("M","Antoine", "Mathat", new Date(), "0677500460", "amathat@insa-lyon.fr", "123456");
+        client2 = new Client("M","George", "Ration", new Date(), "0467382904", "ration@yahoo.fr", "123456");
+        client3 = new Client("M","Pierre", "Kiroule", new Date(), "0467382904", "pierre@yahoo.fr", "123456");
+        client4 = new Client("M","Pascal", "Lebon", new Date(), "0789340718", "pl@yahoo.fr", "123456");
         
         client1.setAdresse(adresseVrai);
         client2.setAdresse(adresseFausse);
         client3.setAdresse(adrCli3);
         client4.setAdresse(adrCli4);
        
-        employe1 = new Employe("Jean", "Neymar", new Date(), "0690239405", "jhameau@insa-lyon.fr", "1234567", true);
-        employe2 = new Employe("Théo", "Benzema", new Date(), "0923849605", "tt@gmail.com", "1234567", true); 
-        employe3 = new Employe("Léo", "Pomp", new Date(), "0678301074", "lp@gmail.com", "1234567", true); 
-        employe4 = new Employe("Nabil", "Pondu", new Date(), "0678903478", "nabildupond@gmail.com", "1234567", true); 
-        employe5 = new Employe("Corentin", "Violet", new Date(), "0798234905", "cocovivi@outlock.com", "1234567", false); 
+        employe1 = new Employe("M","Jean", "Neymar", new Date(), "0690239405", "jhameau@insa-lyon.fr", "1234567", true);
+        employe2 = new Employe("M","Théo", "Benzema", new Date(), "0923849605", "tt@gmail.com", "1234567", true); 
+        employe3 = new Employe("M","Léo", "Pomp", new Date(), "0678301074", "lp@gmail.com", "1234567", true); 
+        employe4 = new Employe("M","Nabil", "Pondu", new Date(), "0678903478", "nabildupond@gmail.com", "1234567", true); 
+        employe5 = new Employe("M","Corentin", "Violet", new Date(), "0798234905", "cocovivi@outlock.com", "1234567", false); 
         
         
         employe1.setAdresse(adresseVrai2);

@@ -36,8 +36,8 @@ public class Employe extends Utilisateur implements Serializable {
     
 
     // ======================= Constructeurs
-    public Employe(String prenom, String nom, Date dateNaissance, String telephone, String email, String motDePasse, boolean disponibilite) {
-        super(nom, prenom, dateNaissance, telephone, email, motDePasse);
+    public Employe(String civilite, String prenom, String nom, Date dateNaissance, String telephone, String email, String motDePasse, boolean disponibilite) {
+        super(civilite, nom, prenom, dateNaissance, telephone, email, motDePasse);
         this.disponibilite = disponibilite;
         this.listeDesInterventions = new ArrayList<>();
     }

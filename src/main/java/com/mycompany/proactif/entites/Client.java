@@ -27,8 +27,8 @@ public class Client extends Utilisateur implements Serializable {
     private List<Intervention> listeDesInterventions;
     
     // ======================= Contructeurs
-    public Client(String prenom, String nom, Date dateNaissance, String telephone, String email, String motDePasse) {
-        super(nom, prenom, dateNaissance, telephone, email, motDePasse);
+    public Client(String civilite, String prenom, String nom, Date dateNaissance, String telephone, String email, String motDePasse) {
+        super(civilite,nom, prenom, dateNaissance, telephone, email, motDePasse);
         this.listeDesInterventions = new ArrayList<>();
     }
     public Client(){}

@@ -52,6 +52,7 @@ public class IHM {
     private static void scenarioInscription() throws ParseException {
         
         // ====== Inscription
+        String civilite;
         String nom;
         String prenom;
         String dateNaissance;
@@ -60,14 +61,14 @@ public class IHM {
         String motDePasse;
         
        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        
+       civilite = Saisie.lireChaine("Saisissez votre civilite : ");
        nom = Saisie.lireChaine("Saisissez votre nom : ");
        prenom = Saisie.lireChaine("Saisissez votre prenom : ");
        dateNaissance = Saisie.lireChaine("Saisissez votre date de Naissance \"dd/MM/yyyy\" : ");
        telephone = Saisie.lireChaine("Saisissez votre telephone : ");
        mail = Saisie.lireChaine("Saisissez votre mail : ");
        motDePasse = Saisie.lireChaine("Saisissez votre mot De Passe : "); 
-       Client c1 = new Client(prenom, nom, format.parse(dateNaissance), telephone, mail, motDePasse);
+       Client c1 = new Client(civilite, prenom, nom, format.parse(dateNaissance), telephone, mail, motDePasse);
        c1.setAdresse(new Adresse(79, "Rue de bruxelles", "69100", "Villeurbanne", ""));
        c1 = (Client) Services.creerUtilisateur(c1);
         
@@ -165,9 +166,9 @@ public class IHM {
         Adresse adresseVrai2 = new Adresse(79, "Rue de bruxelles", "69100", "Villeurbanne", "");
         Adresse adresseFausse2 = new Adresse(9, "rue zzzzzzzzz", "69100", "Villedsfsdfl", "");
         Adresse adrEmp3 = new Adresse(46, "Rue de bruxelles", "69100", "Villeurbanne", "");
-        Employe employe1 = new Employe("Jean", "Neymar", format.parse("04/10/1980"), "0690239405", "jhameau@insa-lyon.fr", "1234567", true);
-        Employe employe2 = new Employe("Théo", "Phile", format.parse("17/02/1990"), "0923849605", "tt@gmail.com", "1234567", true); 
-        Employe employe3 = new Employe("Léo", "Pomp",format.parse("01/12/1976"), "0678301074", "lp@gmail.com", "1234567", true); 
+        Employe employe1 = new Employe("M","Jean", "Neymar", format.parse("04/10/1980"), "0690239405", "jhameau@insa-lyon.fr", "1234567", true);
+        Employe employe2 = new Employe("M","Théo", "Phile", format.parse("17/02/1990"), "0923849605", "tt@gmail.com", "1234567", true); 
+        Employe employe3 = new Employe("M","Léo", "Pomp",format.parse("01/12/1976"), "0678301074", "lp@gmail.com", "1234567", true); 
         employe1.setAdresse(adresseVrai2);
         employe2.setAdresse(adresseFausse2);
         employe3.setAdresse(adrEmp3);

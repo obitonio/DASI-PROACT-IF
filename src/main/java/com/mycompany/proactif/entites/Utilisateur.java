@@ -33,6 +33,9 @@ public abstract class Utilisateur implements Serializable {
     private Long id;
     
     @Column(nullable=false)
+    private String civilite;
+    
+    @Column(nullable=false)
     private String nom;
     
     @Column(nullable=false)
@@ -55,7 +58,8 @@ public abstract class Utilisateur implements Serializable {
     private Adresse adresse;
     
     // ======================= Constructeurs
-    public Utilisateur(String prenom, String nom, Date dateNaissance, String telephone, String email, String motDePasse) {
+    public Utilisateur(String civilite,String prenom, String nom, Date dateNaissance, String telephone, String email, String motDePasse) {
+        this.civilite = civilite;
         this.nom = nom;
         this.prenom = prenom;
         this.dateNaissance = dateNaissance;
@@ -72,6 +76,14 @@ public abstract class Utilisateur implements Serializable {
     // ======================= Getters / Setters
     public Long getId() {
         return id;
+    }
+
+    public String getCivilite() {
+        return civilite;
+    }
+
+    public void setCivilite(String civilite) {
+        this.civilite = civilite;
     }
     
     public String getNom() {
@@ -176,7 +188,7 @@ public abstract class Utilisateur implements Serializable {
 
     @Override
     public String toString() {
-        String message = this.getPrenom() + " " + this.getNom() + ", né le " + this.getDateNaissanceFormate() + "\n";
+        String message = this.getCivilite() + " " + this.getPrenom() + " " + this.getNom() + ", né le " + this.getDateNaissanceFormate() + "\n";
         message += "Adresse :\n";
         message += this.getAdresse().toString() + "\n";
         return message;
