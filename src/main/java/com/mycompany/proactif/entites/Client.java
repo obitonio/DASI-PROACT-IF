@@ -41,6 +41,10 @@ public class Client extends Utilisateur implements Serializable {
         return listeDesInterventions;
     }
 
+    public void setListeDesInterventions(List<Intervention> listeDesInterventions) {
+        this.listeDesInterventions = listeDesInterventions;
+    }
+
     
     // ======================= Surcharges
     

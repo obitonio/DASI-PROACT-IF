@@ -6,7 +6,9 @@
 package com.mycompany.proactif.services;
 
 import com.google.maps.model.LatLng;
-import com.mycompany.proactif.dao.DAOAbstraitUtilisateur;;
+import com.mycompany.proactif.dao.DAOAbstraitUtilisateur;
+import com.mycompany.proactif.dao.DAOClient;
+import com.mycompany.proactif.dao.DAOEmploye;
 import com.mycompany.proactif.dao.DAOIntervention;
 import com.mycompany.proactif.entites.Utilisateur;
 import com.mycompany.proactif.dao.DAOUtilisateur;
@@ -72,9 +74,11 @@ public class Services {
             // Si tout ok alors créer utilisateur
             try {
                 commencerTransactionEcriture();
-                DAOAbstraitUtilisateur<Utilisateur> maDAO = new DAOAbstraitUtilisateur();
-                maDAO.creer(unUtilisateur);
-                utilisateurCree = maDAO.trouverParId(unUtilisateur.getId());
+                DAOAbstraitUtilisateur<Utilisateur> maDAOU = new DAOAbstraitUtilisateur();
+                maDAOU.creer(unUtilisateur);
+                
+                
+                utilisateurCree = maDAOU.trouverParId(unUtilisateur.getId());
 
                 // Envoyer un mail
                 Message.envoyerMail("contact@proactif.fr", unUtilisateur.getEmail(), "[PROACTIF] Bienvenue sur proactif", "Message");
@@ -232,7 +236,7 @@ public class Services {
      * @param etat L'état de fin d'intervention
      * @return Si le traitement s'est terminé correctement
      */
-    public static RetourTerminerIntervention TerminerIntervention(Intervention intervention, String commentaire, int etat){
+    public static RetourTerminerIntervention terminerIntervention(Intervention intervention, String commentaire, int etat){
         
         RetourTerminerIntervention codeRetour = RetourTerminerIntervention.ErreurBase;
         
@@ -269,6 +273,38 @@ public class Services {
         }
         
         return codeRetour;
+    }
+    
+    public static void recupererToutesLesIntervention(Employe employe){
+        
+
+        try{
+            commencerTransactionLecture();
+            DAOEmploye maDAOC = new DAOEmploye(employe);
+            maDAOC.recupererToutesLesIntervention();
+            finirTransactionLecture();
+        }
+        catch(Exception e){
+        }
+       
+        
+    }
+    
+    public static void recupererToutesLesIntervention(Client client){
+        
+
+        try{
+            commencerTransactionLecture();
+            DAOClient maDAOC = new DAOClient(client);
+            maDAOC.recupererToutesLesIntervention();
+            finirTransactionLecture();
+        }
+        catch(Exception e){
+            System.out.println("#######################");
+            System.out.println(e);
+        }
+       
+        
     }
     
     private static void commencerTransactionEcriture() {

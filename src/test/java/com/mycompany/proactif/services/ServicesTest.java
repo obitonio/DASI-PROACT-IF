@@ -280,7 +280,7 @@ public class ServicesTest {
     }   
     
     @Test
-    public void TestTerminerIntervention(){
+    public void testTerminerIntervention(){
         System.out.println("terminerIntervention");
         
         Client c1 = (Client) Services.authentifier(client3.getEmail(), client3.getMotDePasse());           
@@ -290,8 +290,8 @@ public class ServicesTest {
         assertEquals(Services.RetourCreationIntervention.Succes, Services.creerDemandeIntervention(c1, i3));
       
         // Cloture des interventions
-        assertEquals(Services.RetourTerminerIntervention.Succes, Services.TerminerIntervention(i2, "Les toilettes sont oppérationnels", 0));
-        assertEquals(Services.RetourTerminerIntervention.InterventionNonReussie, Services.TerminerIntervention(i3, "La gouttière est cassée un professionnel doit intervenir", -1));
+        assertEquals(Services.RetourTerminerIntervention.Succes, Services.terminerIntervention(i2, "Les toilettes sont oppérationnels", 0));
+        assertEquals(Services.RetourTerminerIntervention.InterventionNonReussie, Services.terminerIntervention(i3, "La gouttière est cassée un professionnel doit intervenir", -1));
 
     }
 }

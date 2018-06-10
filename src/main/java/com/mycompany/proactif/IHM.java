@@ -57,14 +57,15 @@ public class IHM {
       
            
         // Création du client 
-        /*Client u1 = new Client("Antoine", "Mathat", format.parse("29/08/1997"), "0677500460", "amathat@insa-lyon.fr", "123456");
+        Client c1 = new Client("Antoine", "Mathat", format.parse("29/08/1997"), "0677500460", "amathat@insa-lyon.fr", "123456");
         Adresse adrCli3 = new Adresse(45, "Rue de bruxelles", "69100", "Villeurbanne", "");
-        u1.setAdresse(adrCli3);
-        Services.creerUtilisateur(u1);
+        c1.setAdresse(adrCli3);
+        c1 = (Client) Services.creerUtilisateur(c1);
         // ====
         
         // Création de l'intervention 
-        Intervention i1 = new Livraison(u1, "Livraison G", "Le livreur passe à 18h30", "01/06/2018 - 18:30", "093KS38U375", "Colis", "DHL");
+        Intervention i1 = new Livraison(c1, "Livraison G", "Le livreur passe à 18h30", "01/06/2018 - 18:30", "093KS38U375", "Colis", "DHL");
+        Intervention i2 = new Livraison(c1, "Livraison H", "Le livreur passe à 12h00", "01/06/2018 - 18:30", "093KS38U375", "Lettre", "La Poste");
         // ====
         
         System.out.println("Les employés actuellement présent :");
@@ -76,14 +77,16 @@ public class IHM {
         System.out.println("Identifiant : amathat@insa-lyon.fr");
         System.out.println("Mot de passe : 123456");
         System.out.println("Authentification");
-        Client u2 = (Client) Services.authentifier("amathat@insa-lyon.fr", "123456");
-        System.out.println("Utilisateur connecté :\n" + u2.toString());
+        Client c2 = (Client) Services.authentifier("amathat@insa-lyon.fr", "123456");
+        System.out.println("Utilisateur connecté :\n" + c2.toString());
         
-        System.out.println("Création d'une intervention :");
+        System.out.println("Création d'une intervention 1:");
         System.out.println(i1.toString());
-        Services.creerDemandeIntervention(u2, i1);
-        System.out.println("----> Intervention créée");*/
-        scenarioInscription();
+        Services.creerDemandeIntervention(c2, i1);
+        Services.creerDemandeIntervention(c2, i2);
+        System.out.println("----> Intervention créée");
+        
+        //scenarioInscription();
  
     }
     

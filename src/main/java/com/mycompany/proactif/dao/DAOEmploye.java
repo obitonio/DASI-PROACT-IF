@@ -8,6 +8,7 @@ package com.mycompany.proactif.dao;
 import com.google.maps.model.LatLng;
 import com.mycompany.proactif.entites.Employe;
 import com.mycompany.proactif.entites.Intervention;
+import com.mycompany.proactif.util.DebugLogger;
 import com.mycompany.proactif.util.GeoTest;
 import java.util.List;
 import javax.persistence.Query;
@@ -17,6 +18,11 @@ import javax.persistence.Query;
  * @author antoinemathat
  */
 public class DAOEmploye extends DAOAbstraitUtilisateur<Employe> {
+
+    public DAOEmploye(Employe unUtilisateur) {
+        super(unUtilisateur);
+    }
+    
     
     public static List<Employe> getEmployesDisponibles(){
         try{
@@ -50,4 +56,20 @@ public class DAOEmploye extends DAOAbstraitUtilisateur<Employe> {
         }
     } 
     
+    public boolean recupererToutesLesIntervention(){
+        String jpql = "SELECT i FROM Intervention i WHERE i.employe = :employe";
+        Query requete = JpaUtil.obtenirEntityManager().createQuery(jpql);
+        requete.setParameter("employe", objetLocal);
+        
+        try{
+            objetLocal.setListeDesInterventions(requete.getResultList());
+        }
+        catch(Exception e) {
+            objetLocal = null;
+            DebugLogger.log("[DAOUtilisateurAbstrait] recupererToutesLesIntervention (Employe)", e);
+            //TODO : améliorer la réponse de contenue si l'on voit qu'il y a un match avec les adresses mails
+            return false;
+        }
+        return true;
+    }
 }
