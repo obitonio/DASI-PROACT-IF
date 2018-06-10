@@ -81,7 +81,7 @@ public class Services {
                 utilisateurCree = maDAOU.trouverParId(unUtilisateur.getId());
 
                 // Envoyer un mail
-                Message.envoyerMail("contact@proactif.fr", unUtilisateur.getEmail(), "[PROACTIF] Bienvenue sur proactif", "Message");
+                Message.envoyerMail("contact@proactif.fr", unUtilisateur.getEmail(), "[PROACTIF] Bienvenue sur proactif", "Bonjour " + unUtilisateur.getPrenom() + ", \nNous vous confirmons votre inscription au service PROACT'IF.\nCordialement,\nL'équipe PROACT'IF");
                 // TODO Message à rédiger
                 finirTransactionEcriture();
                 return utilisateurCree;
@@ -218,6 +218,8 @@ public class Services {
                 maDAOUtilisateur.mettreAJour();
                 
                 finirTransactionEcriture();
+                
+                Message.envoyerNotification(employeattribue.getTelephone(), "Intervention " + intervention.getClass().getSimpleName() + " demandée le " + intervention.getDateDebut() + " pour " + client.getPrenom() + " " + client.getNom() + ", " + client.getAdresse().toGeoString() + " : " + intervention.getIntitule());
             }
             catch(Exception e) {
                 DebugLogger.log("[Services] creerDemandeIntervention", e);
@@ -265,6 +267,8 @@ public class Services {
                 codeRetour = RetourTerminerIntervention.Succes;
         
             finirTransactionEcriture();
+            
+            Message.envoyerNotification(intervention.getClient().getTelephone(), "Incident le " + intervention.getDateDebut() + ", cloturé à " + intervention.getDateFin() + " : " + intervention.getIntitule() + " Status : " + ((intervention.getEtat() == 1)? "Résolu": "Echec") + ". Commentaire : " + intervention.getCommentaireEmploye());
         }   
         catch(Exception e){
             DebugLogger.log("[SERVICES] TerminerIntervention", e);
