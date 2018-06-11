@@ -95,17 +95,17 @@ public class ServicesTest {
         Services.creerUtilisateur(employe4);
         Services.creerUtilisateur(employe5);
         
-        i1 = new Incident(client3, "Fuite eau", "De l'eau coule derrière le robinet de la cuisine");
-        i2 = new Incident(client3, "Toilettes bouchées", "Mes toilettes sont bouchées");
-        i3 = new Incident(client4, "Problème avec ma gouttière", "Les feuilles ont bouchés ma gouttière");
+        i1 = new Incident("Fuite eau", "De l'eau coule derrière le robinet de la cuisine");
+        i2 = new Incident("Toilettes bouchées", "Mes toilettes sont bouchées");
+        i3 = new Incident("Problème avec ma gouttière", "Les feuilles ont bouchés ma gouttière");
 
-        a1 = new Animal(client3, "Nourir mon chat", "Les croquettes sont dans le placard d ela cuisine", "Tigrou", "CHAT");
-        a2 = new Animal(client3, "Sortir mon chien", "La laisse est sur le porte manteau", "Théo", "CHIEN");
-        a3 = new Animal(client4, "Nourir mon serpent", "Attention à pas vous faire mordre", "Rex", "Serpent");
+        a1 = new Animal("Nourir mon chat", "Les croquettes sont dans le placard d ela cuisine", "Tigrou", "CHAT");
+        a2 = new Animal("Sortir mon chien", "La laisse est sur le porte manteau", "Théo", "CHIEN");
+        a3 = new Animal("Nourir mon serpent", "Attention à pas vous faire mordre", "Rex", "Serpent");
 
-        l1 = new Livraison(client3, "Livraison G", "Le livreur passe à 18h30", "01/06/2018 - 18:30", "093KS38U375", "Colis", "DHL");
-        l2 = new Livraison(client4, "Livraison H", "Le livreur passe à 11h30", "04/06/2018 - 11:30", "093KS38U374", "Recommandé", "La Poste");
-        l3 = new Livraison(client4, "Livraison I", "Le livreur passe à 17h00", "12/06/2018 - 17:00", "093KS38U373", "Lettre", "Colissimo");
+        l1 = new Livraison("Livraison G", "Le livreur passe à 18h30", "01/06/2018 - 18:30", "093KS38U375", "Colis", "DHL");
+        l2 = new Livraison("Livraison H", "Le livreur passe à 11h30", "04/06/2018 - 11:30", "093KS38U374", "Recommandé", "La Poste");
+        l3 = new Livraison("Livraison I", "Le livreur passe à 17h00", "12/06/2018 - 17:00", "093KS38U373", "Lettre", "Colissimo");
     
     }
     

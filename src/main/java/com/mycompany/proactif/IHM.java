@@ -19,6 +19,7 @@ import com.mycompany.proactif.util.DebugLogger;
 import com.mycompany.proactif.util.Saisie;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,6 +30,7 @@ public class IHM {
 
     /**
      * @param args the command line arguments
+     * @throws java.text.ParseException
      */
     public static void main(String[] args) throws ParseException {
    
@@ -38,8 +40,8 @@ public class IHM {
         initialiserJeuEssai();
         
         // Consulter la javadoc pour plus de détails 
-        scenarioInscription();
-        scenarioEmploye();
+        //scenarioInscription();
+        //scenarioEmploye();
     }
     
     /**
@@ -92,17 +94,17 @@ public class IHM {
            case 1: // Animal
                String nomAnimal = Saisie.lireChaine("Saisir le nom de l'animal : ");
                String typeAnimal = Saisie.lireChaine("Saisir son type (chien, chat...) : ");
-               inter = new Animal(c1, intitule, descriptionClient, nomAnimal, typeAnimal);
+               inter = new Animal(intitule, descriptionClient, nomAnimal, typeAnimal);
                break;
            case 2: // Livraison
                String heurePassage = Saisie.lireChaine("Saisir la date et l'heure de livraison (dd/MM/yyyy - hh:mm) : ");
                String codeSuivi = Saisie.lireChaine("Saisir le code de suivi : ");
                String type = Saisie.lireChaine("Saisir le type du colis : ");
                String entreprise = Saisie.lireChaine("Saisir le nom de l'entreprise de livraison : ");
-               inter = new Livraison(c1, intitule, descriptionClient, heurePassage, codeSuivi, type, entreprise);
+               inter = new Livraison(intitule, descriptionClient, heurePassage, codeSuivi, type, entreprise);
                break;
            case 3: // Incident
-               inter = new Incident(c1, intitule, descriptionClient);
+               inter = new Incident(intitule, descriptionClient);
                break;
        }
       
@@ -164,17 +166,39 @@ public class IHM {
         
         // Initialisation de quelques employés
         Adresse adresseVrai2 = new Adresse(79, "Rue de bruxelles", "69100", "Villeurbanne", "");
+        Adresse adresseVrai3 = new Adresse(77, "Rue de bruxelles", "69100", "Villeurbanne", "");
         Adresse adresseFausse2 = new Adresse(9, "rue zzzzzzzzz", "69100", "Villedsfsdfl", "");
         Adresse adrEmp3 = new Adresse(46, "Rue de bruxelles", "69100", "Villeurbanne", "");
         Employe employe1 = new Employe("M","Jean", "Neymar", format.parse("04/10/1980"), "0690239405", "jhameau@insa-lyon.fr", "1234567", true);
         Employe employe2 = new Employe("M","Théo", "Phile", format.parse("17/02/1990"), "0923849605", "tt@gmail.com", "1234567", true); 
         Employe employe3 = new Employe("M","Léo", "Pomp",format.parse("01/12/1976"), "0678301074", "lp@gmail.com", "1234567", true); 
-        employe1.setAdresse(adresseVrai2);
+        Intervention i1 = new Incident("Fuite eau", "De l'eau coule derrière le robinet de la cuisine");
+        Intervention i2 = new Incident("Toilettes bouchées", "Mes toilettes sont bouchées");
+        Intervention i3 = new Incident("Problème avec ma gouttière", "Les feuilles ont bouchés ma gouttière");
+        employe1.setAdresse(adresseVrai3);
         employe2.setAdresse(adresseFausse2);
         employe3.setAdresse(adrEmp3);
+        
+        Client client1 = new Client("M","Antoine", "Mathat", new Date(), "0677500460", "amathat@insa-lyon.fr", "123456");
+        client1.setAdresse(adresseVrai2);
+        client1 = (Client) Services.creerUtilisateur(client1);
+        client1 = (Client) Services.authentifier(client1.getEmail(), client1.getMotDePasse());
         Services.creerUtilisateur(employe1);
         Services.creerUtilisateur(employe2);
         Services.creerUtilisateur(employe3);
+        
+        if(Services.creerDemandeIntervention(client1, i1)== RetourCreationIntervention.Succes)
+            System.out.println("OK");
+        else
+            System.out.println("PAS OK");
+        if(Services.creerDemandeIntervention(client1, i2)==RetourCreationIntervention.Succes)
+            System.out.println("OK");
+        else
+            System.out.println("PAS OK");
+        if(Services.creerDemandeIntervention(client1, i3)==RetourCreationIntervention.AucunEmployeDisponible)
+            System.out.println("OK");
+        else
+            System.out.println("PAS OK");
         // ====
     }
 }

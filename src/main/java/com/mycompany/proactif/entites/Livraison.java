@@ -41,8 +41,8 @@ public class Livraison extends Intervention implements Serializable {
     // ======================= Constructeurs
     public Livraison() {}
     
-    public Livraison(Client client, String intitule, String descriptionClient, String uneHeurePassage, String unCodeSuivi, String unType, String uneEntreprise) {
-        super(client, intitule, descriptionClient);
+    public Livraison(String intitule, String descriptionClient, String uneHeurePassage, String unCodeSuivi, String unType, String uneEntreprise) {
+        super(intitule, descriptionClient);
         this.setHeurePassage(uneHeurePassage);
         this.codeSuivi = unCodeSuivi;
         this.Entreprise = uneEntreprise;
