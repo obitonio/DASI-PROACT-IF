@@ -111,9 +111,9 @@ public class IHM {
        if (retour == RetourCreationIntervention.Succes)
            System.out.println("Intervention créée avec succès.");
        else if (retour == RetourCreationIntervention.AucunEmployeDisponible)
-           DebugLogger.log("Erreur avec la base de données");
-       else
            System.out.println("Aucun employé ne peut traiter votre demande, merci de réessayer ultérieurement.");
+       else
+           DebugLogger.log("Erreur avec la base de données");  
     }
     
     /**
