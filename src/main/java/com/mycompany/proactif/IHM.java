@@ -200,5 +200,7 @@ public class IHM {
         else
             System.out.println("PAS OK");
         // ====
+        
+        System.out.println(i1.toString() + i2.toString() + i3.toString());
     }
 }
