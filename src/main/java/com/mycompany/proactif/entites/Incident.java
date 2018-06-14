@@ -21,8 +21,8 @@ public class Incident extends Intervention implements Serializable {
     // ======================= Constructeurs
     public Incident() {}
     
-    public Incident(Client client, String intitule, String descriptionClient) {
-        super(client, intitule, descriptionClient);
+    public Incident(String intitule, String descriptionClient) {
+        super(intitule, descriptionClient);
     }
     
     // ======================= Méthodes publiques

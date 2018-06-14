@@ -28,8 +28,8 @@ public class Animal extends Intervention implements Serializable {
     // ======================= Constructeurs
     public Animal() {}
     
-    public Animal(Client client, String intitule, String descriptionClient, String unNom, String unType) {
-        super(client, intitule, descriptionClient);
+    public Animal( String intitule, String descriptionClient, String unNom, String unType) {
+        super(intitule, descriptionClient);
         this.nom = unNom;
         this.type = unType;
                 

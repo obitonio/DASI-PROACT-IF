@@ -188,9 +188,11 @@ public class Services {
     public static RetourCreationIntervention creerDemandeIntervention(Client client, Intervention intervention) {
         
         RetourCreationIntervention codeRetour = RetourCreationIntervention.Succes;
-     
+        intervention.setClient(client);
+        intervention.setDateDebut(new Date());
         commencerTransactionLecture();
         Employe employeattribue = getEmployeLePlusProche(getEmployesDisponibles(), intervention);
+        intervention.setEmploye(employeattribue);
         finirTransactionLecture();
         
         if (employeattribue == null) {
@@ -198,8 +200,6 @@ public class Services {
         }
         else {
             
-            intervention.setEmploye(employeattribue);
-            intervention.setDateDebut(new Date());
             employeattribue.setDisponibilite(false);
             employeattribue.getListeDesInterventions().add(intervention);
             client.getListeDesInterventions().add(intervention);

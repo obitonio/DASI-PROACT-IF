@@ -58,14 +58,10 @@ public class Intervention implements Serializable {
     private int etat;
     
     // ======================= Constructeurs
-    public Intervention(Client client, String intitule, String descriptionClient) {
-        this.client = client;
+    public Intervention(String intitule, String descriptionClient) {
         this.intitule = intitule;
         this.descriptionClient = descriptionClient;
         this.etat =0;  //TODO A DEFINIR AVEC ANTOINE
-        if(client != null){
-            client.getListeDesInterventions().add(this);
-        }
     }
     
     public Intervention(){}
