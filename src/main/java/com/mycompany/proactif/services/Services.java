@@ -233,14 +233,21 @@ public class Services {
     
     /**
      * Permet de cloturer une intervention en cours
-     * @param intervention L'intervention à terminer
+     * @param id L'intervention à terminer
      * @param commentaire Le commentaire 
      * @param etat L'état de fin d'intervention
      * @return Si le traitement s'est terminé correctement
      */
-    public static RetourTerminerIntervention terminerIntervention(Intervention intervention, String commentaire, int etat){
+    public static RetourTerminerIntervention terminerIntervention(long id, String commentaire, int etat){
         
         RetourTerminerIntervention codeRetour = RetourTerminerIntervention.ErreurBase;
+                
+        commencerTransactionLecture();
+        Intervention intervention = new Intervention();
+        DAOIntervention recupIntervention = new DAOIntervention();
+        recupIntervention.setObjetLocal(intervention);
+        intervention =recupIntervention.trouverParId(id);
+        finirTransactionLecture();
         
         intervention.setEtat(etat);
         intervention.setCommentaireEmploye(commentaire);

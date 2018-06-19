@@ -145,7 +145,7 @@ public class IHM {
             String commentaire = Saisie.lireChaine("Saisir un commentaire : ");
             int codeEtat = Saisie.lireInteger("Saisir le code état : ");
             
-            if (Services.RetourTerminerIntervention.Succes == Services.terminerIntervention(lesInterventions.get(numeroInter), commentaire, codeEtat)) {
+            if (Services.RetourTerminerIntervention.Succes == Services.terminerIntervention(lesInterventions.get(numeroInter).getId(), commentaire, codeEtat)) {
                 System.out.println("La cloture de l'intervention s'est faîte avec succès.");
             }
             else {
@@ -201,6 +201,7 @@ public class IHM {
             System.out.println("PAS OK");
         // ====
         
+        Services.terminerIntervention(i2.getId(), "lol", 1);
         System.out.println(i1.toString() + i2.toString() + i3.toString());
     }
 }
