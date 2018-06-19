@@ -253,8 +253,7 @@ public class Services {
         
         try {
             commencerTransactionEcriture();
-            DAOIntervention maDAOIntervention = new DAOIntervention();
-            maDAOIntervention.setObjetLocal(intervention);
+            DAOIntervention maDAOIntervention = new DAOIntervention(intervention);
             maDAOIntervention.mettreAJour();
             
             DAOUtilisateur maDAOUtilisateur = new DAOUtilisateur();
