@@ -13,4 +13,11 @@ import com.mycompany.proactif.entites.Intervention;
  */
 public class DAOIntervention extends DAOInstance<Intervention> {
      
+    public DAOIntervention(Intervention inter) {
+        super(inter);
+    }
+    
+    public DAOIntervention() {
+        super();
+    }
 }

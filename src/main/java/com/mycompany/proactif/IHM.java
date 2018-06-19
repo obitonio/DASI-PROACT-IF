@@ -179,7 +179,7 @@ public class IHM {
         employe2.setAdresse(adresseFausse2);
         employe3.setAdresse(adrEmp3);
         
-        Client client1 = new Client("M","Antoine", "Mathat", new Date(), "0677500460", "amathat@insa-lyon.fr", "123456");
+        Client client1 = new Client("M","Mathat", "Antoine", new Date(), "0677500460", "amathat@insa-lyon.fr", "123456");
         client1.setAdresse(adresseVrai2);
         client1 = (Client) Services.creerUtilisateur(client1);
         client1 = (Client) Services.authentifier(client1.getEmail(), client1.getMotDePasse());

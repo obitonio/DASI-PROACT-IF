@@ -5,6 +5,7 @@
  */
 package com.mycompany.proactif.entites;
 
+import com.mycompany.proactif.util.DebugLogger;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -60,7 +61,7 @@ public class Livraison extends Intervention implements Serializable {
         return heurePassage;
     }
 
-    public final void setHeurePassage(String heurePassage) {
+    public void setHeurePassage(String heurePassage) {
         if (heurePassage == null)
             return;
         
@@ -69,7 +70,7 @@ public class Livraison extends Intervention implements Serializable {
             this.heurePassage = sdf.parse(heurePassage);
         }
         catch (ParseException e){
-            System.out.println(e.getMessage());
+            DebugLogger.log("[Livraison]", e);
         }
     }
 
