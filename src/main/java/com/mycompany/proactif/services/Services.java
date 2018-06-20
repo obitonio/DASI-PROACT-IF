@@ -244,8 +244,7 @@ public class Services {
                 
         commencerTransactionLecture();
         Intervention intervention = new Intervention();
-        DAOIntervention recupIntervention = new DAOIntervention();
-        recupIntervention.setObjetLocal(intervention);
+        DAOIntervention recupIntervention = new DAOIntervention(intervention);
         intervention =recupIntervention.trouverParId(id);
         finirTransactionLecture();
         
