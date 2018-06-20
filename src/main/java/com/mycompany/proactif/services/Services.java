@@ -121,6 +121,31 @@ public class Services {
     }
     
     /**
+     * Permet de mettre à jour un utilisateur existant
+     * @param <T> Le type de l'utilisateur (Employe / Client)
+     * @param idUtilisateur L'utilisateur à trouver
+     * @return true en cas de succès sinon false
+     */
+    public static  Utilisateur obtenirUtilisateur(long idUtilisateur){
+        Utilisateur utilisateur = new Client();
+        try {
+            commencerTransactionLecture();
+            
+            DAOAbstraitUtilisateur<Utilisateur> maDAO = new DAOAbstraitUtilisateur(utilisateur);
+            utilisateur = maDAO.trouverParId(idUtilisateur);
+            
+            finirTransactionLecture();
+        }
+        catch (Exception e) {
+            DebugLogger.log("[SERVICE] Mise à jour d'un utilisateur", e);
+            annulerTransaction();
+            utilisateur = null;
+        }
+        
+        return utilisateur;
+    }
+    
+    /**
      * Permet de vérifier les identifiants d'un utilisateur
      * @param email Email de l'utilisateur
      * @param motDePasse Mot de passe de l'utilisateur
