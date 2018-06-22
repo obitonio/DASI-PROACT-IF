@@ -37,7 +37,7 @@ public class IHM {
          JpaUtil.init();
         
         // À activer lors de la première utilisation pour initialiser les employés
-        //initialiserJeuEssai();
+        initialiserJeuEssai();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Adresse adresseVrai = new Adresse(52, "Rue de bruxelles", "69100", "Villeurbanne", "");
         Employe employe1 = new Employe("M","Georges", "Proset", format.parse("05/12/1986"), "0689230495", "proset@test.fr", "proset", true);

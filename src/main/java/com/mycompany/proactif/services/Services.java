@@ -105,7 +105,10 @@ public class Services {
         Utilisateur utilisateurMisAjour;
         try {
             commencerTransactionEcriture();
+            String adresse = unUtilisateur.getAdresse().toGeoString();
+            LatLng coordonneesGPS = GeoTest.getLatLng(adresse);
             
+            unUtilisateur.getAdresse().setCoordonneesGPS(coordonneesGPS);
             DAOAbstraitUtilisateur<Utilisateur> maDAO = new DAOAbstraitUtilisateur(unUtilisateur);
             utilisateurMisAjour = maDAO.mettreAJour();
             
