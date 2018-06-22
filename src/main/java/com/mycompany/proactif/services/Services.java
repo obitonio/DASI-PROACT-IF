@@ -124,10 +124,11 @@ public class Services {
      * Permet de mettre à jour un utilisateur existant
      * @param <T> Le type de l'utilisateur (Employe / Client)
      * @param idUtilisateur L'utilisateur à trouver
+     * @param typeUtilisateur Employe ou Client
      * @return true en cas de succès sinon false
      */
-    public static  Utilisateur obtenirUtilisateur(long idUtilisateur){
-        Utilisateur utilisateur = new Client();
+    public static  Utilisateur obtenirUtilisateur(long idUtilisateur, Utilisateur typeUtilisateur) {
+        Utilisateur utilisateur = typeUtilisateur;
         try {
             commencerTransactionLecture();
             
